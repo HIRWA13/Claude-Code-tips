@@ -207,10 +207,17 @@
             bottom: 40px;
             right: 40px;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
             font-size: 0.9rem;
             color: #999;
+        }
+
+        .author-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .profile-pic {
@@ -251,12 +258,10 @@
         }
 
         .dates-info {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
             font-size: 0.8rem;
             color: #666;
             line-height: 1.4;
+            text-align: right;
         }
 
         @media print {
@@ -463,12 +468,6 @@
                 font-size: 0.8rem;
             }
 
-            .dates-info {
-                bottom: 20px;
-                left: 20px;
-                font-size: 0.7rem;
-            }
-
             .profile-pic {
                 width: 28px;
                 height: 28px;
@@ -552,14 +551,10 @@
                 bottom: 15px;
                 right: 15px;
                 font-size: 0.7rem;
-                flex-direction: column;
-                text-align: right;
                 gap: 5px;
             }
 
-            .dates-info {
-                bottom: 15px;
-                left: 15px;
+            .author-info .dates-info {
                 font-size: 0.6rem;
             }
 
@@ -623,7 +618,7 @@
                 right: 10px;
             }
 
-            .author-info, .dates-info {
+            .author-info {
                 display: none;
             }
         }
@@ -830,15 +825,16 @@
     </div>
 
     <div class="author-info">
-        <span>Created by: Avi Levi</span>
-        <div class="profile-pic">
-            <div class="pixel-avatar"></div>
+        <div class="author-line">
+            <span>Created by: Avi Levi</span>
+            <div class="profile-pic">
+                <div class="pixel-avatar"></div>
+            </div>
         </div>
-    </div>
-
-    <div class="dates-info">
-        <div>Created: September 23, 2025</div>
-        <div>Updated: September 23, 2025</div>
+        <div class="dates-info">
+            <div>Created: September 23, 2025</div>
+            <div>Updated: September 23, 2025</div>
+        </div>
     </div>
 
     <script>
