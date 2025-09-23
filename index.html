@@ -393,6 +393,240 @@
         body.printing .slide {
             display: block !important;
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .slide {
+                width: 95%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            p, li {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 0.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+
+            .code-block {
+                padding: 1rem;
+                font-size: 0.9rem;
+                margin: 1rem 0;
+                overflow-x: auto;
+            }
+
+            .navigation {
+                bottom: 20px;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+            }
+
+            .slide-counter {
+                bottom: 20px;
+                right: 20px;
+                font-size: 0.8rem;
+            }
+
+            .export-btn {
+                top: 20px;
+                right: 20px;
+                padding: 10px 18px;
+                font-size: 0.8rem;
+            }
+
+            .author-info {
+                bottom: 20px;
+                right: 20px;
+                font-size: 0.8rem;
+            }
+
+            .dates-info {
+                bottom: 20px;
+                left: 20px;
+                font-size: 0.7rem;
+            }
+
+            .profile-pic {
+                width: 28px;
+                height: 28px;
+            }
+
+            li {
+                padding-left: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            body::before {
+                background-size: 20px 20px;
+            }
+        }
+
+        /* Extra small screens (phones in portrait) */
+        @media (max-width: 480px) {
+            .slide {
+                width: 98%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            p, li {
+                font-size: 0.9rem;
+                line-height: 1.4;
+                margin-bottom: 0.7rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .code-block {
+                padding: 0.8rem;
+                font-size: 0.8rem;
+                word-wrap: break-word;
+            }
+
+            .navigation {
+                bottom: 15px;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .nav-btn {
+                padding: 8px 14px;
+                font-size: 0.7rem;
+                min-width: 70px;
+            }
+
+            .slide-counter {
+                bottom: 15px;
+                right: 15px;
+                font-size: 0.7rem;
+            }
+
+            .export-btn {
+                top: 15px;
+                right: 15px;
+                padding: 8px 14px;
+                font-size: 0.7rem;
+            }
+
+            .author-info {
+                bottom: 15px;
+                right: 15px;
+                font-size: 0.7rem;
+                flex-direction: column;
+                text-align: right;
+                gap: 5px;
+            }
+
+            .dates-info {
+                bottom: 15px;
+                left: 15px;
+                font-size: 0.6rem;
+            }
+
+            .profile-pic {
+                width: 24px;
+                height: 24px;
+            }
+
+            li {
+                padding-left: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            body::before {
+                background-size: 15px 15px;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .slide {
+                padding: 10px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.6rem;
+            }
+
+            p, li {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .navigation {
+                bottom: 10px;
+            }
+
+            .slide-counter {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .export-btn {
+                top: 10px;
+                right: 10px;
+            }
+
+            .author-info, .dates-info {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
