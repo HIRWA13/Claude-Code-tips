@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Best Practices</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Transparent dot background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            text-align: left;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: #cccccc;
+        }
+
+        p, li {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            color: #e0e0e0;
+        }
+
+        ul {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 0 2rem 0;
+            list-style: none;
+        }
+
+        li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #999999;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 0.9rem;
+            color: #999999;
+            font-weight: 300;
+            z-index: 10;
+        }
+
+        .code-block {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+            max-width: 600px;
+            font-size: 1rem;
+            color: #cccccc;
+        }
+
+        .highlight {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .export-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .export-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .author-info {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pixel-avatar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg,
+                #4a90e2 0%, #4a90e2 25%,
+                #f39c12 25%, #f39c12 50%,
+                #e74c3c 50%, #e74c3c 75%,
+                #2ecc71 75%, #2ecc71 100%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pixel-avatar::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow:
+                6px 0 0 #fff,
+                0 6px 0 #333,
+                6px 6px 0 #333,
+                3px 12px 0 #333;
+        }
+
+        .dates-info {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        @media print {
+            .navigation, .slide-counter, .export-btn, .author-info, .dates-info {
+                display: none !important;
+            }
+
+            body {
+                background: #0a0a0a !important;
+                color: #ffffff !important;
+                font-size: 12pt !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body::before {
+                content: '' !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px) !important;
+                background-size: 30px 30px !important;
+                z-index: 0 !important;
+                pointer-events: none !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .slideshow-container {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+            }
+
+            .slide {
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+                display: block !important;
+                position: relative !important;
+                width: 100% !important;
+                max-width: none !important;
+                height: auto !important;
+                min-height: 90vh !important;
+                padding: 40px 20px !important;
+                margin: 0 !important;
+                color: #ffffff !important;
+                text-align: left !important;
+                z-index: 1 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .slide:last-child {
+                page-break-after: auto !important;
+            }
+
+            h1 {
+                color: #ffffff !important;
+                font-size: 28pt !important;
+                margin-bottom: 20pt !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            h2 {
+                color: #ffffff !important;
+                font-size: 20pt !important;
+                margin-bottom: 15pt !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            h3 {
+                color: #cccccc !important;
+                font-size: 16pt !important;
+                margin-bottom: 12pt !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            p, li {
+                color: #e0e0e0 !important;
+                font-size: 12pt !important;
+                line-height: 1.5 !important;
+                margin-bottom: 8pt !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .subtitle {
+                color: #999999 !important;
+                font-size: 14pt !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .highlight {
+                color: #ffffff !important;
+                font-weight: bold !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .code-block {
+                background: rgba(255, 255, 255, 0.05) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                color: #cccccc !important;
+                padding: 15pt !important;
+                margin: 10pt 0 !important;
+                font-size: 10pt !important;
+                border-radius: 4px !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            ul {
+                margin: 10pt 0 !important;
+            }
+
+            li {
+                margin-bottom: 6pt !important;
+            }
+
+            li::before {
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        body.printing .slide {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Claude Code</h1>
+            <p class="subtitle">Best Practices Every Engineer Should Know</p>
+            <p style="margin-top: 4rem; color: #666;">Engineering Excellence with AI</p>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 2rem; color: #999; font-size: 0.9rem;">
+                <span>Created by: Avi Levi</span>
+                <div class="profile-pic">
+                    <div class="pixel-avatar"></div>
+                </div>
+            </div>
+
+            <div class="dates-info">
+                <div>Created: September 23, 2025</div>
+                <div>Updated: September 23, 2025</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: What is Claude Code? -->
+        <div class="slide">
+            <h2>What is Claude Code?</h2>
+            <p class="subtitle">An AI-powered coding assistant in your terminal</p>
+            <ul>
+                <li>Command-line interface (CLI) tool by Anthropic</li>
+                <li>Helps with coding tasks, debugging, and project management</li>
+                <li>Understands your entire codebase context</li>
+                <li>Can read, write, and modify files automatically</li>
+                <li>Integrates with your existing development workflow</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: What is CLAUDE.md? -->
+        <div class="slide">
+            <h2>What is CLAUDE.md?</h2>
+            <p class="subtitle">Think of it as instructions for your AI assistant</p>
+            <ul>
+                <li><span class="highlight">A special file</span> you create in your project folder</li>
+                <li>Contains project-specific information for Claude</li>
+                <li>Like giving Claude a "user manual" for your project</li>
+                <li>Helps Claude understand your project's unique setup</li>
+            </ul>
+        </div>
+
+        <!-- Slide 4: CLAUDE.md Example -->
+        <div class="slide">
+            <h2>CLAUDE.md Example</h2>
+            <h3>Here's what a real CLAUDE.md file looks like:</h3>
+            <div class="code-block" style="max-width: none;">
+                <span class="highlight"># My React Project</span><br><br>
+                ## How to run the project<br>
+                npm start - starts development server<br>
+                npm test - runs tests<br>
+                npm run build - creates production build<br><br>
+                ## Code Style<br>
+                - Use TypeScript<br>
+                - Components go in src/components/<br>
+                - Use functional components with hooks<br><br>
+                ## Important Notes<br>
+                - Database is PostgreSQL<br>
+                - API endpoints are in src/api/
+            </div>
+        </div>
+
+        <!-- Slide 5: Why Use CLAUDE.md? -->
+        <div class="slide">
+            <h2>Why Use CLAUDE.md?</h2>
+            <h3>Benefits for beginners:</h3>
+            <ul>
+                <li><span class="highlight">Saves time:</span> Claude knows your project setup instantly</li>
+                <li><span class="highlight">Prevents mistakes:</span> Claude follows your coding standards</li>
+                <li><span class="highlight">Better suggestions:</span> Claude understands your tech stack</li>
+                <li><span class="highlight">Team consistency:</span> Everyone uses the same guidelines</li>
+                <li><span class="highlight">Documentation:</span> Your project is self-documenting</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Getting Started -->
+        <div class="slide">
+            <h2>Getting Started - Step by Step</h2>
+            <h3>For complete beginners:</h3>
+            <ul>
+                <li><span class="highlight">Step 1:</span> Install Claude Code from Anthropic</li>
+                <li><span class="highlight">Step 2:</span> Open your terminal/command prompt</li>
+                <li><span class="highlight">Step 3:</span> Navigate to your project folder</li>
+                <li><span class="highlight">Step 4:</span> Create a CLAUDE.md file</li>
+                <li><span class="highlight">Step 5:</span> Start chatting with Claude about your code!</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Optimal Workflow -->
+        <div class="slide">
+            <h2>The Best Way to Work with Claude</h2>
+            <h3>Explore → Plan → Code → Commit</h3>
+            <ul>
+                <li><span class="highlight">"Read my files first"</span> - Let Claude understand your code</li>
+                <li><span class="highlight">"Don't write code yet"</span> - Plan before coding</li>
+                <li><span class="highlight">"Think about this"</span> - Use analysis modes</li>
+                <li><span class="highlight">"Break this down"</span> - Make tasks smaller</li>
+            </ul>
+        </div>
+
+        <!-- Slide 8: Real Examples -->
+        <div class="slide">
+            <h2>What Can You Ask Claude?</h2>
+            <h3>Example conversations:</h3>
+            <div class="code-block" style="max-width: none;">
+                <span class="highlight">You:</span> "Add a login button to my homepage"<br>
+                <span class="highlight">Claude:</span> "I'll read your homepage file first, then add a styled login button that matches your design."<br><br>
+                <span class="highlight">You:</span> "Why isn't my code working?"<br>
+                <span class="highlight">Claude:</span> "Let me check your files and find the bug. I see the issue on line 23..."<br><br>
+                <span class="highlight">You:</span> "Make this code cleaner"<br>
+                <span class="highlight">Claude:</span> "I'll refactor this following your CLAUDE.md style guide."
+            </div>
+        </div>
+
+        <!-- Slide 9: Testing Made Easy -->
+        <div class="slide">
+            <h2>Testing Made Easy</h2>
+            <h3>What is Test-Driven Development (TDD)?</h3>
+            <ul>
+                <li><span class="highlight">Write the test first</span> - Describe what you want your code to do</li>
+                <li><span class="highlight">Watch it fail</span> - The test should fail because you haven't written the code yet</li>
+                <li><span class="highlight">Write minimal code</span> - Just enough to make the test pass</li>
+                <li><span class="highlight">Improve the code</span> - Make it cleaner while keeping tests green</li>
+            </ul>
+            <p style="margin-top: 2rem; color: #999;">
+                Red (Fail) → Green (Pass) → Refactor (Clean)
+            </p>
+        </div>
+
+        <!-- Slide 10: Useful Commands -->
+        <div class="slide">
+            <h2>Essential Commands for Beginners</h2>
+            <h3>Commands you'll use every day:</h3>
+            <ul>
+                <li><span class="highlight">/clear</span> - Start fresh conversation</li>
+                <li><span class="highlight">/help</span> - Get help with Claude Code</li>
+                <li><span class="highlight">"Read this file"</span> - Have Claude examine your code</li>
+                <li><span class="highlight">"Explain this code"</span> - Understand what code does</li>
+                <li><span class="highlight">"Fix this bug"</span> - Debug your code</li>
+            </ul>
+        </div>
+
+        <!-- Slide 11: Pro Tips -->
+        <div class="slide">
+            <h2>Pro Tips for Better Results</h2>
+            <ul>
+                <li><span class="highlight">Be specific:</span> "Add a red button" vs "Add styling"</li>
+                <li><span class="highlight">Show examples:</span> Upload screenshots or paste code samples</li>
+                <li><span class="highlight">Give context:</span> "This is for a mobile app" vs "This is for a website"</li>
+                <li><span class="highlight">Ask questions:</span> "What's the best way to..." instead of guessing</li>
+                <li><span class="highlight">Iterate:</span> Refine your request if the first attempt isn't perfect</li>
+            </ul>
+        </div>
+
+        <!-- Slide 12: Common Beginner Mistakes -->
+        <div class="slide">
+            <h2>Common Mistakes to Avoid</h2>
+            <ul>
+                <li><span class="highlight">Don't skip CLAUDE.md</span> - It saves hours of explaining your project</li>
+                <li><span class="highlight">Don't rush into coding</span> - Let Claude explore your codebase first</li>
+                <li><span class="highlight">Don't give vague instructions</span> - Be specific about what you want</li>
+                <li><span class="highlight">Don't ignore errors</span> - Ask Claude to explain and fix them</li>
+                <li><span class="highlight">Don't work alone</span> - Use Claude as your coding partner</li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: What You Can Build -->
+        <div class="slide">
+            <h2>What Can You Build with Claude?</h2>
+            <h3>Projects perfect for beginners:</h3>
+            <ul>
+                <li><span class="highlight">Personal websites</span> - Portfolio, blog, landing pages</li>
+                <li><span class="highlight">Simple web apps</span> - To-do lists, calculators, games</li>
+                <li><span class="highlight">Mobile apps</span> - With React Native or Flutter</li>
+                <li><span class="highlight">Automation scripts</span> - File organizers, data processors</li>
+                <li><span class="highlight">APIs and backends</span> - Server-side applications</li>
+            </ul>
+        </div>
+
+        <!-- Slide 14: Thank You -->
+        <div class="slide">
+            <h1>Thank You</h1>
+            <p class="subtitle">You're Ready to Start Coding with Claude!</p>
+            <p style="margin-top: 2rem; color: #ccc;">Remember:</p>
+            <ul style="margin-top: 1rem;">
+                <li>Create your CLAUDE.md file</li>
+                <li>Start with simple projects</li>
+                <li>Ask specific questions</li>
+                <li>Don't be afraid to experiment</li>
+            </ul>
+            <p style="margin-top: 3rem; color: #666;">
+                Happy coding! 🚀
+            </p>
+        </div>
+    </div>
+
+    <button class="export-btn" onclick="exportToPDF()">Export to PDF</button>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="changeSlide(-1)">Previous</button>
+        <button class="nav-btn" onclick="changeSlide(1)">Next</button>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">14</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'Home') {
+                showSlide(0);
+            } else if (e.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // Touch/swipe support
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            startX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            endX = e.changedTouches[0].screenX;
+            if (startX - endX > 50) {
+                changeSlide(1); // Swipe left, next slide
+            } else if (endX - startX > 50) {
+                changeSlide(-1); // Swipe right, previous slide
+            }
+        });
+
+        // PDF Export functionality
+        function exportToPDF() {
+            // Temporarily show all slides for printing
+            const allSlides = document.querySelectorAll('.slide');
+            const originalActiveSlide = currentSlide;
+
+            // Remove all active classes first
+            allSlides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // Add a print class to body to trigger print styles
+            document.body.classList.add('printing');
+
+            // Show all slides
+            allSlides.forEach(slide => {
+                slide.style.display = 'block';
+                slide.style.pageBreakAfter = 'always';
+            });
+
+            // Remove page break from last slide
+            if (allSlides.length > 0) {
+                allSlides[allSlides.length - 1].style.pageBreakAfter = 'auto';
+            }
+
+            // Alert user about print settings
+            alert('📋 IMPORTANT: To export with dark background design:\n\n1. In the print dialog, click "More settings"\n2. Check "Background graphics" option\n3. This ensures the black dotted background prints correctly\n4. Choose "Save as PDF" as destination');
+
+            // Short delay to ensure styles are applied, then print
+            setTimeout(() => {
+                window.print();
+
+                // Restore original state after printing
+                setTimeout(() => {
+                    document.body.classList.remove('printing');
+                    allSlides.forEach((slide, index) => {
+                        slide.style.display = '';
+                        slide.style.pageBreakAfter = '';
+                        if (index !== originalActiveSlide) {
+                            slide.classList.remove('active');
+                        } else {
+                            slide.classList.add('active');
+                        }
+                    });
+                }, 100);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
