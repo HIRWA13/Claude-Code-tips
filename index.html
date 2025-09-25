@@ -622,6 +622,156 @@
                 display: none;
             }
         }
+
+        /* Pie Chart Styles */
+        .chart-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .pie-chart-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .pie-chart {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .pie-segment {
+            fill: transparent;
+            stroke-width: 100;
+            stroke-dasharray: 0 314;
+            transform-origin: center;
+            transition: all 0.8s ease-out;
+            cursor: pointer;
+        }
+
+        .pie-segment:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+
+        .slide.active .pie-segment {
+            animation: drawSegment 1.5s ease-out forwards;
+        }
+
+        @keyframes drawSegment {
+            from {
+                stroke-dasharray: 0 314;
+            }
+        }
+
+        .chart-legend {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: none;
+        }
+
+        .slide.active .legend-item {
+            animation: fadeInLegend 0.5s ease-out forwards;
+        }
+
+        .slide.active .legend-item:nth-child(1) { animation-delay: 0.3s; }
+        .slide.active .legend-item:nth-child(2) { animation-delay: 0.4s; }
+        .slide.active .legend-item:nth-child(3) { animation-delay: 0.5s; }
+        .slide.active .legend-item:nth-child(4) { animation-delay: 0.6s; }
+        .slide.active .legend-item:nth-child(5) { animation-delay: 0.7s; }
+        .slide.active .legend-item:nth-child(6) { animation-delay: 0.8s; }
+        .slide.active .legend-item:nth-child(7) { animation-delay: 0.9s; }
+
+        @keyframes fadeInLegend {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
+
+        .legend-label {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .legend-percentage {
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .chart-stats {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .chart-stats span {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments for chart */
+        @media (max-width: 768px) {
+            .chart-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .pie-chart-wrapper {
+                width: 280px;
+                height: 280px;
+            }
+
+            .chart-legend {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pie-chart-wrapper {
+                width: 240px;
+                height: 240px;
+            }
+
+            .legend-label {
+                font-size: 0.85rem;
+            }
+
+            .legend-percentage {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -808,7 +958,130 @@
             </ul>
         </div>
 
-        <!-- Slide 14: Thank You -->
+        <!-- Slide 14: Usage Statistics -->
+        <div class="slide">
+            <h2>How Developers Use Claude Code</h2>
+            <p class="subtitle">Based on 115,000+ developers processing 195M lines weekly</p>
+
+            <div class="chart-container">
+                <div class="pie-chart-wrapper">
+                    <svg class="pie-chart" viewBox="0 0 200 200">
+                        <!-- UI/Frontend Development: 28% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#ffffff"
+                                stroke-dasharray="88 226"
+                                data-percent="28"/>
+
+                        <!-- Code Migration & Refactoring: 22% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#e0e0e0"
+                                stroke-dasharray="69 245"
+                                stroke-dashoffset="-88"
+                                data-percent="22"/>
+
+                        <!-- Testing & TDD: 18% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#b3b3b3"
+                                stroke-dasharray="57 257"
+                                stroke-dashoffset="-157"
+                                data-percent="18"/>
+
+                        <!-- Bug Fixing & Debugging: 15% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#808080"
+                                stroke-dasharray="47 267"
+                                stroke-dashoffset="-214"
+                                data-percent="15"/>
+
+                        <!-- Documentation: 8% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#666666"
+                                stroke-dasharray="25 289"
+                                stroke-dashoffset="-261"
+                                data-percent="8"/>
+
+                        <!-- Backend Development: 6% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#4d4d4d"
+                                stroke-dasharray="19 295"
+                                stroke-dashoffset="-286"
+                                data-percent="6"/>
+
+                        <!-- DevOps & Automation: 3% -->
+                        <circle class="pie-segment"
+                                cx="100" cy="100" r="50"
+                                stroke="#333333"
+                                stroke-dasharray="9 305"
+                                stroke-dashoffset="-305"
+                                data-percent="3"/>
+                    </svg>
+                </div>
+
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ffffff;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">UI/Frontend Development</span>
+                            <span class="legend-percentage">28%</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e0e0e0;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Code Migration & Refactoring</span>
+                            <span class="legend-percentage">22%</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #b3b3b3;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Testing & TDD</span>
+                            <span class="legend-percentage">18%</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #808080;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Bug Fixing & Debugging</span>
+                            <span class="legend-percentage">15%</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #666666;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Documentation</span>
+                            <span class="legend-percentage">8%</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4d4d4d;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Backend Development</span>
+                            <span class="legend-percentage">6%</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #333333;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">DevOps & Automation</span>
+                            <span class="legend-percentage">3%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-stats">
+                <span>79%</span> of conversations involve automation vs <span>49%</span> on Claude.ai
+            </div>
+        </div>
+
+        <!-- Slide 15: Thank You -->
         <div class="slide">
             <h1>Thank You</h1>
             <p class="subtitle">You're Ready to Start Coding with Claude!</p>
@@ -833,7 +1106,7 @@
     </div>
 
     <div class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">14</span>
+        <span id="current-slide">1</span> / <span id="total-slides">15</span>
     </div>
 
 
