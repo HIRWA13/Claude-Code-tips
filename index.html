@@ -636,6 +636,12 @@
             position: relative;
             width: 350px;
             height: 350px;
+        }
+
+        .pie-chart-outer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             overflow: hidden;
             background: conic-gradient(
@@ -659,7 +665,7 @@
             transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .slide.active .pie-chart-wrapper {
+        .slide.active .pie-chart-outer {
             animation: scaleInRotate 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
@@ -677,8 +683,9 @@
 
         .pie-chart-inner {
             position: absolute;
-            top: 25%;
-            left: 25%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 50%;
             height: 50%;
             border-radius: 50%;
@@ -1016,6 +1023,7 @@
 
             <div class="chart-container">
                 <div class="pie-chart-wrapper">
+                    <div class="pie-chart-outer"></div>
                     <div class="pie-chart-inner">
                         <div class="chart-total">115K+</div>
                         <div class="chart-label">Active<br>Developers</div>
