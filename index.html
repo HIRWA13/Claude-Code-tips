@@ -918,35 +918,42 @@
 
         /* Commands Slide Styles */
         .commands-container {
-            display: flex;
-            gap: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .command-section {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .command-section h3 {
             color: #ffffff;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             margin-bottom: 1rem;
             border-bottom: 2px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 0.5rem;
+            text-align: center;
         }
 
         .command-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.7rem;
+            flex: 1;
         }
 
         .command-item {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            padding: 1rem;
+            padding: 0.8rem;
             transition: all 0.3s ease;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .command-item:hover {
@@ -958,21 +965,29 @@
         .command-name {
             color: #ffffff;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin-bottom: 0.3rem;
             font-family: 'JetBrains Mono', monospace;
         }
 
         .command-desc {
             color: #cccccc;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             line-height: 1.4;
+            flex: 1;
         }
 
         /* Responsive Commands Layout */
+        @media (max-width: 1024px) {
+            .commands-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .commands-container {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
 
@@ -1052,6 +1067,306 @@
                 line-height: 1.2;
             }
         }
+
+        /* Installation Steps Styles */
+        .installation-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .install-section h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .install-section h3::before {
+            content: '→';
+            color: #ffffff;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Hands-on Practice Styles */
+        .practice-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .practice-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .practice-section:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .practice-section h3 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .practice-step {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border-left: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .practice-step .step-number {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .practice-step .step-desc {
+            color: #cccccc;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-top: 0.3rem;
+        }
+
+        /* Responsive Installation and Practice */
+        @media (max-width: 768px) {
+            .practice-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .install-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .practice-section {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .installation-steps {
+                gap: 1.2rem;
+            }
+
+            .install-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .practice-container {
+                gap: 1rem;
+            }
+
+            .practice-section {
+                padding: 1rem;
+            }
+
+            .practice-section h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Troubleshooting Styles */
+        .troubleshoot-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .issue-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .issue-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .issue-title {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .issue-solution {
+            color: #cccccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .issue-solution strong {
+            color: #ffffff;
+        }
+
+        .issue-solution code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #ffffff;
+        }
+
+        /* Responsive Troubleshooting */
+        @media (max-width: 768px) {
+            .troubleshoot-container {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .issue-item {
+                padding: 1rem;
+            }
+
+            .issue-title {
+                font-size: 0.95rem;
+            }
+
+            .issue-solution {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .troubleshoot-container {
+                gap: 1rem;
+            }
+
+            .issue-item {
+                padding: 0.8rem;
+            }
+
+            .issue-title {
+                font-size: 0.9rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .issue-solution {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Resources Section Styles */
+        .resources-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-section:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .resource-section h3 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .resource-section ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .resource-section li {
+            color: #cccccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .resource-section li::before {
+            content: '▸';
+            color: #ffffff;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive Resources */
+        @media (max-width: 1024px) {
+            .resources-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .resources-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .resource-section {
+                padding: 1.2rem;
+            }
+
+            .resource-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .resource-section li {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .resources-container {
+                gap: 1rem;
+            }
+
+            .resource-section {
+                padding: 1rem;
+            }
+
+            .resource-section h3 {
+                font-size: 1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .resource-section li {
+                font-size: 0.8rem;
+                margin-bottom: 0.6rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1087,6 +1402,41 @@
                 <li>Can read, write, and modify files automatically</li>
                 <li>Integrates with your existing development workflow</li>
             </ul>
+        </div>
+
+        <!-- Slide 3: Installation & Setup -->
+        <div class="slide">
+            <h2>Installation & Setup</h2>
+            <p class="subtitle">Get up and running in under 2 minutes</p>
+
+            <div class="installation-steps">
+                <div class="install-section">
+                    <h3>1. Install Claude Code</h3>
+                    <div class="code-block">
+                        <span class="highlight"># Option 1: Using npm</span><br>
+                        npm install -g @anthropics/claude-code<br><br>
+                        <span class="highlight"># Option 2: Download from Anthropic</span><br>
+                        # Visit: https://claude.ai/code
+                    </div>
+                </div>
+
+                <div class="install-section">
+                    <h3>2. Authenticate</h3>
+                    <div class="code-block">
+                        claude auth login
+                    </div>
+                </div>
+
+                <div class="install-section">
+                    <h3>3. Start Coding!</h3>
+                    <div class="code-block">
+                        <span class="highlight"># Navigate to your project</span><br>
+                        cd your-project<br><br>
+                        <span class="highlight"># Start Claude Code</span><br>
+                        claude
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Slide 3: What is CLAUDE.md? -->
@@ -1195,60 +1545,126 @@
 
             <div class="commands-container">
                 <div class="command-section">
-                    <h3>Built-in Commands</h3>
+                    <h3>Session Management</h3>
                     <div class="command-grid">
                         <div class="command-item">
                             <div class="command-name">/clear</div>
-                            <div class="command-desc">Start fresh conversation - use when switching topics</div>
+                            <div class="command-desc">Start fresh conversation when switching topics</div>
                         </div>
                         <div class="command-item">
                             <div class="command-name">/compact</div>
                             <div class="command-desc">Compress long conversations while preserving context</div>
                         </div>
                         <div class="command-item">
-                            <div class="command-name">/help</div>
-                            <div class="command-desc">Show available commands and project-specific options</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/cost</div>
-                            <div class="command-desc">Track your session usage costs and token consumption</div>
-                        </div>
-                        <div class="command-item">
                             <div class="command-name">/exit</div>
-                            <div class="command-desc">End session and return to terminal prompt</div>
+                            <div class="command-desc">End session and return to terminal</div>
                         </div>
                         <div class="command-item">
-                            <div class="command-name">/memory</div>
-                            <div class="command-desc">Directly edit and manage conversation memories</div>
+                            <div class="command-name">/resume</div>
+                            <div class="command-desc">Resume previous conversation session</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="command-section">
-                    <h3>Natural Language Commands</h3>
+                    <h3>Information & Setup</h3>
+                    <div class="command-grid">
+                        <div class="command-item">
+                            <div class="command-name">/help</div>
+                            <div class="command-desc">Show available commands and options</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">/init</div>
+                            <div class="command-desc">Initialize Claude Code in new project</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">/model</div>
+                            <div class="command-desc">Switch between AI models (sonnet/opus)</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">/usage</div>
+                            <div class="command-desc">Check token usage and costs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="command-section">
+                    <h3>Coding Tasks</h3>
                     <div class="command-grid">
                         <div class="command-item">
                             <div class="command-name">"Read this file"</div>
-                            <div class="command-desc">Have Claude examine and understand your code</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">"Explain this code"</div>
-                            <div class="command-desc">Get detailed explanations of code functionality</div>
+                            <div class="command-desc">Have Claude examine your code</div>
                         </div>
                         <div class="command-item">
                             <div class="command-name">"Fix this bug"</div>
-                            <div class="command-desc">Debug and resolve code issues automatically</div>
+                            <div class="command-desc">Debug and resolve code issues</div>
                         </div>
                         <div class="command-item">
-                            <div class="command-name">"Create CLAUDE.md"</div>
-                            <div class="command-desc">Generate project documentation file</div>
+                            <div class="command-name">"Explain code"</div>
+                            <div class="command-desc">Get detailed code explanations</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">"Create tests"</div>
+                            <div class="command-desc">Generate unit and integration tests</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 11: Pro Tips -->
+        <!-- Slide 11: Hands-on Practice -->
+        <div class="slide">
+            <h2>Let's Practice Together!</h2>
+            <p class="subtitle">Follow along with these interactive exercises</p>
+
+            <div class="practice-container">
+                <div class="practice-section">
+                    <h3>Exercise 1: Basic Setup</h3>
+                    <div class="practice-step">
+                        <div class="step-number">Step 1:</div>
+                        <div class="step-desc">Open terminal in any project folder</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Step 2:</div>
+                        <div class="step-desc">Run <code>/init</code> to set up Claude Code</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Step 3:</div>
+                        <div class="step-desc">Ask: "Create a CLAUDE.md for this project"</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Step 4:</div>
+                        <div class="step-desc">Review and customize the generated file</div>
+                    </div>
+                </div>
+
+                <div class="practice-section">
+                    <h3>Exercise 2: Code Analysis</h3>
+                    <div class="practice-step">
+                        <div class="step-number">Step 1:</div>
+                        <div class="step-desc">Choose any code file in your project</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Step 2:</div>
+                        <div class="step-desc">Ask: "Read and explain this file"</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Step 3:</div>
+                        <div class="step-desc">Follow up: "Suggest improvements"</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Step 4:</div>
+                        <div class="step-desc">Try: "Create tests for this code"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; color: #999; font-style: italic;">
+                ⏱️ Take 5-10 minutes to try both exercises
+            </div>
+        </div>
+
+        <!-- Slide 12: Pro Tips -->
         <div class="slide">
             <h2>Pro Tips for Better Results</h2>
             <ul>
@@ -1260,7 +1676,57 @@
             </ul>
         </div>
 
-        <!-- Slide 12: Common Beginner Mistakes -->
+        <!-- Slide 12: Troubleshooting Common Issues -->
+        <div class="slide">
+            <h2>Troubleshooting Common Issues</h2>
+            <p class="subtitle">Quick fixes for workshop scenarios</p>
+
+            <div class="troubleshoot-container">
+                <div class="issue-item">
+                    <div class="issue-title">🚫 "Command not found: claude"</div>
+                    <div class="issue-solution">
+                        <strong>Solution:</strong> Restart terminal or run: <code>export PATH=$PATH:/usr/local/bin</code>
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-title">⚠️ "API Key not found"</div>
+                    <div class="issue-solution">
+                        <strong>Solution:</strong> Run <code>/help</code> then authenticate with <code>claude auth login</code>
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-title">🐌 "Claude is responding slowly"</div>
+                    <div class="issue-solution">
+                        <strong>Solution:</strong> Use <code>/compact</code> to compress conversation or <code>/clear</code> to start fresh
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-title">❌ "Claude can't find my files"</div>
+                    <div class="issue-solution">
+                        <strong>Solution:</strong> Make sure you're in the project directory and files exist. Use relative paths.
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-title">💸 "High token usage"</div>
+                    <div class="issue-solution">
+                        <strong>Solution:</strong> Check <code>/usage</code>, use <code>/clear</code> frequently, switch to sonnet with <code>/model</code>
+                    </div>
+                </div>
+
+                <div class="issue-item">
+                    <div class="issue-title">🔄 "Lost my conversation context"</div>
+                    <div class="issue-solution">
+                        <strong>Solution:</strong> Try <code>/resume</code> to restore or recreate CLAUDE.md to give context
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Common Beginner Mistakes -->
         <div class="slide">
             <h2>Common Mistakes to Avoid</h2>
             <ul>
@@ -1365,7 +1831,48 @@
             </div>
         </div>
 
-        <!-- Slide 15: Thank You -->
+        <!-- Slide 17: Next Steps & Resources -->
+        <div class="slide">
+            <h2>Next Steps & Resources</h2>
+            <p class="subtitle">Continue your Claude Code journey</p>
+
+            <div class="resources-container">
+                <div class="resource-section">
+                    <h3>📚 Learn More</h3>
+                    <ul>
+                        <li><span class="highlight">Official Docs:</span> docs.claude.com</li>
+                        <li><span class="highlight">Best Practices:</span> anthropic.com/engineering</li>
+                        <li><span class="highlight">Community:</span> Discord & GitHub discussions</li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>🚀 Practice Projects</h3>
+                    <ul>
+                        <li>Create a personal portfolio site</li>
+                        <li>Build a simple REST API</li>
+                        <li>Set up automated testing workflow</li>
+                        <li>Refactor an existing project</li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>🛠️ Advanced Features</h3>
+                    <ul>
+                        <li>Custom slash commands</li>
+                        <li>Project-specific configurations</li>
+                        <li>Team workflow integration</li>
+                        <li>CI/CD automation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="color: #999; font-size: 1rem;">Questions? Let's discuss!</p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Thank You -->
         <div class="slide">
             <h1>Thank You</h1>
             <p class="subtitle">You're Ready to Start Coding with Claude!</p>
@@ -1390,7 +1897,7 @@
     </div>
 
     <div class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides">15</span>
+        <span id="current-slide">1</span> / <span id="total-slides">18</span>
     </div>
 
 

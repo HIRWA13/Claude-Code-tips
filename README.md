@@ -1,111 +1,158 @@
-# Claude Code Best Practices Slideshow
+# Claude Code Workshop Slideshow
 
-## What We Created
+## 🎯 Purpose
 
-This project is an interactive web-based slideshow presentation about **Claude Code best practices for beginners**. It's a comprehensive educational resource designed to help new developers understand and effectively use Claude Code (Anthropic's AI-powered coding assistant) in their development workflow.
+This project is a **comprehensive workshop slideshow** designed for teaching Claude Code best practices. Perfect for technical presentations, developer training sessions, and educational workshops about AI-assisted coding.
 
-## Features
+## ✨ What's New in This Version
 
-### 🎨 **Modern Dark Design**
-- Dark theme with subtle dot background pattern
-- Clean, minimalist typography using JetBrains Mono font
-- Smooth fade-in animations between slides
-- Professional presentation aesthetics
+### 📊 **Enhanced Content**
+- **18 total slides** (expanded from 14)
+- **Installation & Setup guide** for hands-on workshops
+- **3-column responsive commands layout** with comprehensive command coverage
+- **Interactive practice exercises** for audience engagement
+- **Troubleshooting section** for real workshop scenarios
+- **Next Steps & Resources** for continued learning
 
-### 📱 **Interactive Navigation**
-- Keyboard controls (arrow keys, spacebar, Home/End)
-- Touch/swipe support for mobile devices
-- Navigation buttons for mouse users
-- Slide counter showing current position
+### 🎨 **Advanced Features**
+- **Animated pie chart** showing real Claude Code usage statistics (115K+ developers)
+- **Individual segment animations** with staggered effects
+- **Fully responsive design** across all devices and orientations
+- **Professional workshop styling** with interactive elements
 
-### 📄 **PDF Export**
-- One-click export to PDF functionality
-- Print-optimized styling with proper page breaks
-- Maintains dark theme design in printed output
-- User guidance for optimal print settings
+### 📱 **Mobile-First Design**
+- **Grid layouts** that adapt from 3-column → 2-column → 1-column
+- **Touch-friendly interfaces** for tablet presentations
+- **Landscape orientation support** for various presentation setups
 
-### 📚 **Comprehensive Content**
-The slideshow covers 14 key topics:
-1. **Title slide** with author information
-2. **What is Claude Code?** - Introduction to the AI assistant
-3. **What is CLAUDE.md?** - Project configuration file explanation
-4. **CLAUDE.md Example** - Real-world configuration sample
-5. **Why Use CLAUDE.md?** - Benefits and advantages
-6. **Getting Started** - Step-by-step beginner guide
-7. **Optimal Workflow** - Best practices for working with Claude
-8. **Real Examples** - Sample conversations and use cases
-9. **Testing Made Easy** - Introduction to Test-Driven Development
-10. **Essential Commands** - Daily-use commands for beginners
-11. **Pro Tips** - Advanced techniques for better results
-12. **Common Mistakes** - Pitfalls to avoid
-13. **Project Ideas** - What beginners can build
-14. **Thank You** - Closing with key takeaways
+## 📚 Complete Slide Breakdown
 
-## How It Was Created
+### **Foundation (Slides 1-6)**
+1. **Title Slide** - Professional introduction with author info
+2. **What is Claude Code?** - Tool overview and capabilities
+3. **Installation & Setup** - Step-by-step workshop setup guide
+4. **What is CLAUDE.md?** - Project configuration explanation
+5. **CLAUDE.md Example** - Real-world configuration sample
+6. **Why Use CLAUDE.md?** - Benefits and value proposition
 
-### 🛠 **Technology Stack**
-- **Pure HTML/CSS/JavaScript** - No frameworks or dependencies
-- **Modern CSS** - Flexbox layout, CSS animations, media queries
-- **Responsive Design** - Works on desktop, tablet, and mobile
-- **Print CSS** - Specialized styling for PDF export
+### **Core Skills (Slides 7-12)**
+7. **Getting Started** - Beginner-friendly step-by-step guide
+8. **Optimal Workflow** - Best practices methodology
+9. **Real Examples** - Interactive conversation samples
+10. **Testing Made Easy** - TDD introduction with Claude Code
+11. **Essential Commands** - Comprehensive 3-column command reference
+12. **Hands-on Practice** - Interactive workshop exercises
 
-### 🎯 **Design Principles**
-- **Accessibility-first** - Clear typography and high contrast
-- **Performance-focused** - Single file, fast loading
-- **User-friendly** - Intuitive navigation and controls
-- **Professional** - Corporate presentation quality
+### **Advanced & Support (Slides 13-18)**
+13. **Troubleshooting** - Common workshop issues and solutions
+14. **Common Mistakes** - Pitfalls to avoid for beginners
+15. **Project Ideas** - Inspiration for practical applications
+16. **Usage Statistics** - Data-driven insights with animated charts
+17. **Next Steps & Resources** - Continued learning pathways
+18. **Thank You** - Workshop conclusion with key takeaways
 
-### 📖 **Content Strategy**
-- **Beginner-focused** - Assumes no prior knowledge of Claude Code
-- **Practical examples** - Real use cases and code samples
-- **Step-by-step guidance** - Clear progression from basics to advanced
-- **Visual hierarchy** - Structured information with highlights and bullet points
+## 🎪 Workshop-Ready Features
 
-### 🔧 **Key Implementation Details**
+### **Interactive Elements**
+- **Practice exercises** with step-by-step guidance
+- **Troubleshooting scenarios** for real-world problem-solving
+- **Visual command reference** organized by category
+- **Animated data visualizations** for engagement
 
-#### Slideshow Logic
-- JavaScript-powered slide management
-- CSS class toggling for active slides
-- Smooth transitions with CSS animations
+### **Presentation Tools**
+- **18 slides** perfectly sized for 60-90 minute workshops
+- **PDF export** for handout materials
+- **Mobile-friendly** for audience follow-along
+- **Professional styling** suitable for corporate training
 
-#### Navigation System
-- Multi-input support (keyboard, touch, mouse)
-- Circular navigation (wraps around at ends)
-- Visual feedback with slide counter
+### **Command Coverage**
+- **Session Management**: `/clear`, `/compact`, `/exit`, `/resume`
+- **Information & Setup**: `/help`, `/init`, `/model`, `/usage`
+- **Coding Tasks**: Natural language commands for daily development
 
-#### PDF Export
-- Dynamic print styling
-- Temporary layout changes for printing
-- User guidance for optimal export settings
-- Preservation of dark theme in print
+## 🛠 Technical Implementation
 
-## Usage
+### **Modern CSS Features**
+- **CSS Grid** for responsive 3-column layouts
+- **Conic gradients** for animated pie chart segments
+- **CSS animations** with staggered delays
+- **Media queries** for comprehensive device support
 
-1. **Open** `index.html` in any modern web browser
-2. **Navigate** using:
-   - Arrow keys or spacebar
-   - Touch swipes on mobile
-   - Previous/Next buttons
-3. **Export** to PDF using the export button
-4. **Present** in fullscreen mode for best experience
+### **Interactive Components**
+- **Animated pie chart** with 7 individual segments
+- **Hover effects** on interactive elements
+- **Touch gesture support** for mobile presentations
+- **Keyboard navigation** for accessibility
 
-## Target Audience
+### **Performance Optimized**
+- **Single HTML file** for maximum portability
+- **Efficient animations** with hardware acceleration
+- **Responsive images** and optimized loading
+- **Print-friendly** PDF export functionality
 
-This slideshow is perfect for:
-- **New developers** learning about AI-assisted coding
-- **Teams** introducing Claude Code to their workflow
+## 🎯 Perfect For
+
+### **Workshop Facilitators**
+- **Technical trainers** introducing AI coding tools
+- **Developer advocates** presenting at conferences
+- **Engineering managers** onboarding teams
 - **Educators** teaching modern development practices
-- **Technical presentations** about AI coding tools
 
-## File Structure
+### **Learning Scenarios**
+- **Corporate training sessions** (60-90 minutes)
+- **Developer meetups** and user groups
+- **University courses** on AI-assisted development
+- **Team onboarding** for Claude Code adoption
+
+## 📱 Multi-Device Support
+
+### **Desktop Presentations**
+- **Full-screen mode** for projector presentations
+- **Keyboard shortcuts** for smooth navigation
+- **High-resolution graphics** for large displays
+
+### **Mobile & Tablet**
+- **Touch gestures** for swipe navigation
+- **Responsive layouts** that work on any screen size
+- **Portrait/landscape** orientation support
+- **Offline capability** for anywhere presentations
+
+## 🚀 Quick Start
+
+1. **Download** the `index.html` file
+2. **Open** in any modern web browser
+3. **Present** using keyboard, mouse, or touch controls
+4. **Export** to PDF for handouts using the export button
+5. **Customize** content as needed for your audience
+
+## 📁 Project Structure
 
 ```
 claude-code-slideshow/
-└── index.html          # Complete slideshow application
+├── index.html          # Complete workshop slideshow
+├── README.md          # This documentation
+└── facebook-post.md   # Social media content
 ```
 
-The entire presentation is contained in a single HTML file for maximum portability and ease of sharing.
+## 🎨 Customization
+
+The slideshow is designed to be easily customizable:
+- **Single file** - easy to edit and modify
+- **Clear CSS structure** - well-organized styles
+- **Modular design** - easy to add/remove slides
+- **Consistent theming** - maintains professional appearance
 
 ---
 
-*Created by: Avi Levi | September 23, 2025*
+## 📊 Usage Statistics Integration
+
+Features real data from **115,000+ developers** processing **195M lines weekly**, presented through:
+- **Interactive pie chart** with smooth animations
+- **7 usage categories** with detailed breakdowns
+- **Comparison metrics** (79% automation vs 49% on Claude.ai)
+- **Professional data visualization** for credible presentations
+
+---
+
+**Created by: Avi Levi | September 25, 2025**
+*Optimized for technical workshops and developer training*
