@@ -644,41 +644,126 @@
             height: 100%;
             border-radius: 50%;
             overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        .pie-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%);
+            transform-origin: center;
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+        }
+
+        .slide.active .pie-segment {
+            animation: segmentGrow 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes segmentGrow {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Segment 1: UI/Frontend - 28% */
+        .segment-1 {
             background: conic-gradient(
                 from 0deg,
                 #ffffff 0deg,
-                #ffffff 100.8deg,     /* 28% */
-                #e0e0e0 100.8deg,
-                #e0e0e0 180deg,       /* 22% */
-                #b3b3b3 180deg,
-                #b3b3b3 244.8deg,     /* 18% */
-                #808080 244.8deg,
-                #808080 298.8deg,     /* 15% */
-                #666666 298.8deg,
-                #666666 327.6deg,     /* 8% */
-                #4d4d4d 327.6deg,
-                #4d4d4d 349.2deg,     /* 6% */
-                #333333 349.2deg,
-                #333333 360deg        /* 3% */
+                #ffffff 100.8deg,
+                transparent 100.8deg
             );
-            transform: scale(0);
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation-delay: 0.1s !important;
         }
 
-        .slide.active .pie-chart-outer {
-            animation: scaleInRotate 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        /* Segment 2: Migration - 22% */
+        .segment-2 {
+            background: conic-gradient(
+                from 100.8deg,
+                transparent 0deg,
+                transparent 0.01deg,
+                #e0e0e0 0.01deg,
+                #e0e0e0 79.2deg,
+                transparent 79.2deg
+            );
+            animation-delay: 0.2s !important;
         }
 
-        @keyframes scaleInRotate {
-            0% {
-                transform: scale(0) rotate(-90deg);
-            }
-            50% {
-                transform: scale(1.1) rotate(180deg);
-            }
-            100% {
-                transform: scale(1) rotate(360deg);
-            }
+        /* Segment 3: Testing - 18% */
+        .segment-3 {
+            background: conic-gradient(
+                from 180deg,
+                transparent 0deg,
+                transparent 0.01deg,
+                #b3b3b3 0.01deg,
+                #b3b3b3 64.8deg,
+                transparent 64.8deg
+            );
+            animation-delay: 0.3s !important;
+        }
+
+        /* Segment 4: Bug Fixing - 15% */
+        .segment-4 {
+            background: conic-gradient(
+                from 244.8deg,
+                transparent 0deg,
+                transparent 0.01deg,
+                #808080 0.01deg,
+                #808080 54deg,
+                transparent 54deg
+            );
+            animation-delay: 0.4s !important;
+        }
+
+        /* Segment 5: Documentation - 8% */
+        .segment-5 {
+            background: conic-gradient(
+                from 298.8deg,
+                transparent 0deg,
+                transparent 0.01deg,
+                #666666 0.01deg,
+                #666666 28.8deg,
+                transparent 28.8deg
+            );
+            animation-delay: 0.5s !important;
+        }
+
+        /* Segment 6: Backend - 6% */
+        .segment-6 {
+            background: conic-gradient(
+                from 327.6deg,
+                transparent 0deg,
+                transparent 0.01deg,
+                #4d4d4d 0.01deg,
+                #4d4d4d 21.6deg,
+                transparent 21.6deg
+            );
+            animation-delay: 0.6s !important;
+        }
+
+        /* Segment 7: DevOps - 3% */
+        .segment-7 {
+            background: conic-gradient(
+                from 349.2deg,
+                transparent 0deg,
+                transparent 0.01deg,
+                #333333 0.01deg,
+                #333333 10.8deg,
+                transparent 10.8deg
+            );
+            animation-delay: 0.7s !important;
         }
 
         .pie-chart-inner {
@@ -1023,7 +1108,15 @@
 
             <div class="chart-container">
                 <div class="pie-chart-wrapper">
-                    <div class="pie-chart-outer"></div>
+                    <div class="pie-chart-outer">
+                        <div class="pie-segment segment-1"></div>
+                        <div class="pie-segment segment-2"></div>
+                        <div class="pie-segment segment-3"></div>
+                        <div class="pie-segment segment-4"></div>
+                        <div class="pie-segment segment-5"></div>
+                        <div class="pie-segment segment-6"></div>
+                        <div class="pie-segment segment-7"></div>
+                    </div>
                     <div class="pie-chart-inner">
                         <div class="chart-total">115K+</div>
                         <div class="chart-label">Active<br>Developers</div>
