@@ -202,6 +202,37 @@
             z-index: 999;
         }
 
+        /* ─── Nav Hint ─── */
+        .nav-hint {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .nav-hint kbd {
+            display: inline-block;
+            padding: 1px 5px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            font-family: inherit;
+            font-size: inherit;
+            background: var(--surface);
+            color: var(--accent);
+        }
+        @media (max-width: 480px) {
+            .nav-hint { display: none; }
+        }
+
         /* ─── 12. Code Block ─── */
         .code-block {
             background: var(--code-bg);
@@ -1670,6 +1701,10 @@
                 Happy coding! 🚀
             </p>
         </div>
+    </div>
+
+    <div class="nav-hint">
+        use <kbd>←</kbd> <kbd>→</kbd> arrow keys to navigate slides
     </div>
 
     <div class="slide-counter">
