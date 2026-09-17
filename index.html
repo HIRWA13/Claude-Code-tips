@@ -3,24 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Code Best Practices</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Claude Code: Power User Playbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* ─── 1. Brand Tokens — Dark Mode (default) ─── */
+        :root {
+            --ojemba-blue:    #001342;
+            --ojemba-green:   #8ACC50;
+            --ojemba-forest:  #116355;
+            --ojemba-grey:    #384051;
+
+            --bg:             #001342;
+            --bg-depth:       #000e2c;
+            --surface:        rgba(255,255,255,0.05);
+            --surface-hover:  rgba(255,255,255,0.09);
+            --border:         rgba(255,255,255,0.1);
+            --border-hover:   rgba(255,255,255,0.22);
+            --text-primary:   #ffffff;
+            --text-secondary: #d0daf0;
+            --text-muted:     #7a90c0;
+            --accent:         #8ACC50;
+            --accent-2:       #116355;
+            --dot-color:      rgba(255,255,255,0.14);
+            --code-bg:        rgba(138,204,80,0.1);
+            --code-border:    rgba(138,204,80,0.18);
+            --code-text:      #a8d87a;
+            --heading-h2:     #ffffff;
+            --heading-h3:     #c0cee8;
+            --subtitle-color: #7a90c0;
+            --li-bullet:      #8ACC50;
+            --counter-color:  #4a5f8c;
+            --pie-inner-bg:   #001342;
+            --card-num:       #8ACC50;
+            --section-rule:   rgba(138,204,80,0.28);
+        }
+
+        /* ─── 2. Light Mode Overrides ─── */
+        body.light-mode {
+            --bg:             #f0f5ff;
+            --bg-depth:       #e6eeff;
+            --surface:        rgba(0,19,66,0.04);
+            --surface-hover:  rgba(0,19,66,0.08);
+            --border:         rgba(0,19,66,0.12);
+            --border-hover:   rgba(0,19,66,0.25);
+            --text-primary:   #001342;
+            --text-secondary: #1a2d60;
+            --text-muted:     #384051;
+            --accent:         #116355;
+            --accent-2:       #8ACC50;
+            --dot-color:      rgba(0,19,66,0.07);
+            --code-bg:        rgba(17,99,85,0.08);
+            --code-border:    rgba(17,99,85,0.18);
+            --code-text:      #0e5046;
+            --heading-h2:     #001342;
+            --heading-h3:     #384051;
+            --subtitle-color: #4a5f8c;
+            --li-bullet:      #116355;
+            --counter-color:  #7a90c0;
+            --pie-inner-bg:   #f0f5ff;
+            --card-num:       #116355;
+            --section-rule:   rgba(17,99,85,0.28);
+        }
+
+        /* ─── 3. Reset ─── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* ─── 4. Body Base ─── */
         body {
-            font-family: 'JetBrains Mono', 'Courier New', monospace;
-            background: #0a0a0a;
-            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', 'GT Flexa', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
             overflow: hidden;
             position: relative;
+            transition: background 0.35s ease, color 0.35s ease;
         }
 
-        /* Transparent dot background pattern */
+        /* ─── 5. Dot Background Pattern ─── */
         body::before {
             content: '';
             position: fixed;
@@ -28,13 +90,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+            background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
             background-size: 30px 30px;
             z-index: 0;
             pointer-events: none;
         }
 
 
+        /* ─── 6. Slideshow Container ─── */
         .slideshow-container {
             position: relative;
             width: 100vw;
@@ -45,53 +108,58 @@
             z-index: 1;
         }
 
+        /* ─── 7. Slide + Active State ─── */
         .slide {
             display: none;
             width: 90%;
             max-width: 1000px;
             text-align: left;
             padding: 40px;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.45s ease-in-out;
         }
 
         .slide.active {
             display: block;
         }
 
+        /* ─── 8. Fade-in Animation ─── */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* ─── 9. Headings ─── */
         h1 {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 2rem;
             letter-spacing: -0.02em;
             line-height: 1.1;
+            color: var(--text-primary);
         }
 
         h2 {
             font-size: 2.5rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 2rem;
             letter-spacing: -0.01em;
-            color: #ffffff;
+            color: var(--heading-h2);
         }
 
         h3 {
             font-size: 1.8rem;
             font-weight: 400;
             margin-bottom: 1.5rem;
-            color: #cccccc;
+            color: var(--heading-h3);
         }
 
+        /* ─── 10. Body Text, Lists & Subtitle ─── */
         p, li {
             font-size: 1.2rem;
             line-height: 1.6;
             margin-bottom: 1rem;
             font-weight: 300;
-            color: #e0e0e0;
+            color: var(--text-secondary);
         }
 
         ul {
@@ -111,98 +179,89 @@
             content: '→';
             position: absolute;
             left: 0;
-            color: #ffffff;
-            font-weight: 500;
+            color: var(--li-bullet);
+            font-weight: 600;
         }
 
         .subtitle {
             font-size: 1.5rem;
-            color: #999999;
+            color: var(--subtitle-color);
             margin-bottom: 3rem;
             font-weight: 300;
         }
 
-        .navigation {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 10;
-        }
 
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 12px 24px;
-            cursor: pointer;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
+        /* ─── 11. Slide Counter ─── */
         .slide-counter {
             position: fixed;
             bottom: 30px;
             right: 30px;
             font-size: 0.9rem;
-            color: #999999;
-            font-weight: 300;
-            z-index: 10;
+            color: var(--counter-color);
+            font-weight: 400;
+            z-index: 999;
         }
 
+        /* ─── 12. Code Block ─── */
         .code-block {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
             border-radius: 8px;
             padding: 1.5rem;
             margin: 1.5rem 0;
             text-align: left;
             max-width: 600px;
             font-size: 1rem;
-            color: #cccccc;
+            color: var(--code-text);
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
         }
 
+        /* ─── 13. Highlight + Inline Code + Center ─── */
         .highlight {
-            color: #ffffff;
-            font-weight: 500;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .slide code {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            padding: 0.1rem 0.45rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875em;
+            color: var(--code-text);
         }
 
         .center {
             text-align: center;
         }
 
-        .export-btn {
+        /* ─── 14. Theme Toggle ─── */
+        .theme-toggle {
             position: fixed;
             top: 30px;
             right: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 12px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 14px;
             cursor: pointer;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            z-index: 10;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1;
+            transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+            backdrop-filter: blur(12px);
+            z-index: 1000;
         }
 
-        .export-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.4);
+        .theme-toggle:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
         }
 
+        /* ─── 15. Author Info Block ─── */
         .author-info {
             position: absolute;
             bottom: 40px;
@@ -212,7 +271,7 @@
             align-items: flex-end;
             gap: 8px;
             font-size: 0.9rem;
-            color: #999;
+            color: var(--text-muted);
         }
 
         .author-line {
@@ -225,7 +284,7 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #333;
+            background: var(--surface);
             position: relative;
             overflow: hidden;
         }
@@ -234,10 +293,10 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(45deg,
-                #4a90e2 0%, #4a90e2 25%,
+                #4a90e2 0%,  #4a90e2 25%,
                 #f39c12 25%, #f39c12 50%,
-                #e74c3c 50%, #e74c3c 75%,
-                #2ecc71 75%, #2ecc71 100%);
+                #8ACC50 50%, #8ACC50 75%,
+                #116355 75%, #116355 100%);
             border-radius: 50%;
             position: relative;
         }
@@ -251,380 +310,83 @@
             height: 4px;
             background: #fff;
             border-radius: 50%;
-            box-shadow:
-                6px 0 0 #fff,
-                0 6px 0 #333,
-                6px 6px 0 #333,
-                3px 12px 0 #333;
+            box-shadow: 6px 0 0 #fff, 0 6px 0 #333, 6px 6px 0 #333, 3px 12px 0 #333;
         }
 
         .dates-info {
             font-size: 0.8rem;
-            color: #666;
+            color: var(--counter-color);
             line-height: 1.4;
             text-align: right;
         }
 
-        @media print {
-            .navigation, .slide-counter, .export-btn, .author-info, .dates-info {
-                display: none !important;
-            }
 
-            body {
-                background: #0a0a0a !important;
-                color: #ffffff !important;
-                font-size: 12pt !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            body::before {
-                content: '' !important;
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 1px, transparent 1px) !important;
-                background-size: 30px 30px !important;
-                z-index: 0 !important;
-                pointer-events: none !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .slideshow-container {
-                position: static !important;
-                width: 100% !important;
-                height: auto !important;
-                display: block !important;
-            }
-
-            .slide {
-                page-break-after: always !important;
-                page-break-inside: avoid !important;
-                display: block !important;
-                position: relative !important;
-                width: 100% !important;
-                max-width: none !important;
-                height: auto !important;
-                min-height: 90vh !important;
-                padding: 40px 20px !important;
-                margin: 0 !important;
-                color: #ffffff !important;
-                text-align: left !important;
-                z-index: 1 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .slide:last-child {
-                page-break-after: auto !important;
-            }
-
-            h1 {
-                color: #ffffff !important;
-                font-size: 28pt !important;
-                margin-bottom: 20pt !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            h2 {
-                color: #ffffff !important;
-                font-size: 20pt !important;
-                margin-bottom: 15pt !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            h3 {
-                color: #cccccc !important;
-                font-size: 16pt !important;
-                margin-bottom: 12pt !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            p, li {
-                color: #e0e0e0 !important;
-                font-size: 12pt !important;
-                line-height: 1.5 !important;
-                margin-bottom: 8pt !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .subtitle {
-                color: #999999 !important;
-                font-size: 14pt !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .highlight {
-                color: #ffffff !important;
-                font-weight: bold !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            .code-block {
-                background: rgba(255, 255, 255, 0.05) !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                color: #cccccc !important;
-                padding: 15pt !important;
-                margin: 10pt 0 !important;
-                font-size: 10pt !important;
-                border-radius: 4px !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            ul {
-                margin: 10pt 0 !important;
-            }
-
-            li {
-                margin-bottom: 6pt !important;
-            }
-
-            li::before {
-                color: #ffffff !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-        }
-
-        body.printing .slide {
-            display: block !important;
-        }
-
-        /* Mobile Responsive Styles */
+        /* ─── 18. Mobile — 768px ─── */
         @media (max-width: 768px) {
-            .slide {
-                width: 95%;
-                padding: 20px;
-            }
+            .slide { width: 95%; padding: 20px; }
 
-            h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1.5rem;
-            }
+            h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+            h2 { font-size: 2rem;   margin-bottom: 1.5rem; }
+            h3 { font-size: 1.5rem; margin-bottom: 1rem; }
 
-            h2 {
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-            }
+            p, li { font-size: 1rem; line-height: 1.5; margin-bottom: 0.8rem; }
+            .subtitle { font-size: 1.2rem; margin-bottom: 2rem; }
 
-            h3 {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
+            .code-block { padding: 1rem; font-size: 0.9rem; margin: 1rem 0; overflow-x: auto; }
 
-            p, li {
-                font-size: 1rem;
-                line-height: 1.5;
-                margin-bottom: 0.8rem;
-            }
+            .slide-counter { bottom: 20px; right: 20px; font-size: 0.8rem; }
 
-            .subtitle {
-                font-size: 1.2rem;
-                margin-bottom: 2rem;
-            }
+            .theme-toggle { top: 20px; right: 20px; padding: 8px 12px; font-size: 1rem; }
 
-            .code-block {
-                padding: 1rem;
-                font-size: 0.9rem;
-                margin: 1rem 0;
-                overflow-x: auto;
-            }
+            .author-info { bottom: 20px; right: 20px; font-size: 0.8rem; }
+            .profile-pic { width: 28px; height: 28px; }
 
-            .navigation {
-                bottom: 20px;
-                gap: 15px;
-            }
-
-            .nav-btn {
-                padding: 10px 18px;
-                font-size: 0.8rem;
-            }
-
-            .slide-counter {
-                bottom: 20px;
-                right: 20px;
-                font-size: 0.8rem;
-            }
-
-            .export-btn {
-                top: 20px;
-                right: 20px;
-                padding: 10px 18px;
-                font-size: 0.8rem;
-            }
-
-            .author-info {
-                bottom: 20px;
-                right: 20px;
-                font-size: 0.8rem;
-            }
-
-            .profile-pic {
-                width: 28px;
-                height: 28px;
-            }
-
-            li {
-                padding-left: 1.5rem;
-                margin-bottom: 1rem;
-            }
-
-            body::before {
-                background-size: 20px 20px;
-            }
+            li { padding-left: 1.5rem; margin-bottom: 1rem; }
+            body::before { background-size: 20px 20px; }
         }
 
-        /* Extra small screens (phones in portrait) */
+        /* ─── 19. Mobile — 480px ─── */
         @media (max-width: 480px) {
-            .slide {
-                width: 98%;
-                padding: 15px;
-            }
+            .slide { width: 98%; padding: 15px; }
 
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-            }
+            h1 { font-size: 2rem;   margin-bottom: 1rem; }
+            h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+            h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
 
-            h2 {
-                font-size: 1.6rem;
-                margin-bottom: 1rem;
-            }
+            p, li { font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.7rem; }
+            .subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
 
-            h3 {
-                font-size: 1.3rem;
-                margin-bottom: 0.8rem;
-            }
+            .code-block { padding: 0.8rem; font-size: 0.8rem; word-wrap: break-word; }
 
-            p, li {
-                font-size: 0.9rem;
-                line-height: 1.4;
-                margin-bottom: 0.7rem;
-            }
+            .slide-counter { bottom: 15px; right: 15px; font-size: 0.7rem; }
 
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 1.5rem;
-            }
+            .theme-toggle { top: 15px; right: 15px; padding: 7px 10px; font-size: 1rem; }
 
-            .code-block {
-                padding: 0.8rem;
-                font-size: 0.8rem;
-                word-wrap: break-word;
-            }
+            .author-info { bottom: 15px; right: 15px; font-size: 0.7rem; gap: 5px; }
+            .author-info .dates-info { font-size: 0.6rem; }
+            .profile-pic { width: 24px; height: 24px; }
 
-            .navigation {
-                bottom: 15px;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            .nav-btn {
-                padding: 8px 14px;
-                font-size: 0.7rem;
-                min-width: 70px;
-            }
-
-            .slide-counter {
-                bottom: 15px;
-                right: 15px;
-                font-size: 0.7rem;
-            }
-
-            .export-btn {
-                top: 15px;
-                right: 15px;
-                padding: 8px 14px;
-                font-size: 0.7rem;
-            }
-
-            .author-info {
-                bottom: 15px;
-                right: 15px;
-                font-size: 0.7rem;
-                gap: 5px;
-            }
-
-            .author-info .dates-info {
-                font-size: 0.6rem;
-            }
-
-            .profile-pic {
-                width: 24px;
-                height: 24px;
-            }
-
-            li {
-                padding-left: 1.2rem;
-                margin-bottom: 0.8rem;
-            }
-
-            body::before {
-                background-size: 15px 15px;
-            }
+            li { padding-left: 1.2rem; margin-bottom: 0.8rem; }
+            body::before { background-size: 15px 15px; }
         }
 
-        /* Landscape orientation adjustments */
+        /* ─── 20. Landscape Orientation ─── */
         @media (max-height: 500px) and (orientation: landscape) {
-            .slide {
-                padding: 10px 20px;
-            }
+            .slide { padding: 10px 20px; }
 
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 0.8rem;
-            }
+            h1 { font-size: 2rem;   margin-bottom: 0.8rem; }
+            h2 { font-size: 1.6rem; margin-bottom: 0.8rem; }
+            h3 { font-size: 1.3rem; margin-bottom: 0.6rem; }
 
-            h2 {
-                font-size: 1.6rem;
-                margin-bottom: 0.8rem;
-            }
+            p, li { font-size: 0.9rem; margin-bottom: 0.5rem; }
+            .subtitle { font-size: 1rem; margin-bottom: 1rem; }
 
-            h3 {
-                font-size: 1.3rem;
-                margin-bottom: 0.6rem;
-            }
-
-            p, li {
-                font-size: 0.9rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 1rem;
-            }
-
-            .navigation {
-                bottom: 10px;
-            }
-
-            .slide-counter {
-                bottom: 10px;
-                right: 10px;
-            }
-
-            .export-btn {
-                top: 10px;
-                right: 10px;
-            }
-
-            .author-info {
-                display: none;
-            }
+            .slide-counter { bottom: 10px; right: 10px; }
+            .theme-toggle  { top: 10px; right: 10px; }
+            .author-info   { display: none; }
         }
 
-        /* Pie Chart Styles */
+        /* ─── 21. Chart Container & Wrapper ─── */
         .chart-container {
             display: flex;
             align-items: center;
@@ -645,9 +407,10 @@
             height: 100%;
             border-radius: 50%;
             overflow: hidden;
-            background: #0a0a0a;
+            background: var(--bg);
         }
 
+        /* ─── 22. Pie Segment Base & Animation ─── */
         .pie-segment {
             position: absolute;
             width: 100%;
@@ -664,109 +427,49 @@
         }
 
         @keyframes segmentGrow {
-            0% {
-                opacity: 0;
-                transform: scale(0) rotate(0deg);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.1) rotate(5deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
+            0%   { opacity: 0; transform: scale(0)   rotate(0deg); }
+            50%  { opacity: 1; transform: scale(1.1) rotate(5deg); }
+            100% { opacity: 1; transform: scale(1)   rotate(0deg); }
         }
 
-        /* Segment 1: UI/Frontend - 28% */
+        /* ─── 23. Pie Segments — Ojemba Brand Palette ─── */
+        /* Segment 1: UI/Frontend - 28% — Ojemba Green */
         .segment-1 {
-            background: conic-gradient(
-                from 0deg,
-                #ffffff 0deg,
-                #ffffff 100.8deg,
-                transparent 100.8deg
-            );
+            background: conic-gradient(from 0deg, #8ACC50 0deg, #8ACC50 100.8deg, transparent 100.8deg);
             animation-delay: 0.1s !important;
         }
-
-        /* Segment 2: Migration - 22% */
+        /* Segment 2: Migration - 22% — Green 70% */
         .segment-2 {
-            background: conic-gradient(
-                from 100.8deg,
-                transparent 0deg,
-                transparent 0.01deg,
-                #e0e0e0 0.01deg,
-                #e0e0e0 79.2deg,
-                transparent 79.2deg
-            );
+            background: conic-gradient(from 100.8deg, transparent 0deg, transparent 0.01deg, #5f9e38 0.01deg, #5f9e38 79.2deg, transparent 79.2deg);
             animation-delay: 0.2s !important;
         }
-
-        /* Segment 3: Testing - 18% */
+        /* Segment 3: Testing - 18% — Forest Green */
         .segment-3 {
-            background: conic-gradient(
-                from 180deg,
-                transparent 0deg,
-                transparent 0.01deg,
-                #b3b3b3 0.01deg,
-                #b3b3b3 64.8deg,
-                transparent 64.8deg
-            );
+            background: conic-gradient(from 180deg, transparent 0deg, transparent 0.01deg, #116355 0.01deg, #116355 64.8deg, transparent 64.8deg);
             animation-delay: 0.3s !important;
         }
-
-        /* Segment 4: Bug Fixing - 15% */
+        /* Segment 4: Bug Fixing - 15% — Forest Green 70% */
         .segment-4 {
-            background: conic-gradient(
-                from 244.8deg,
-                transparent 0deg,
-                transparent 0.01deg,
-                #808080 0.01deg,
-                #808080 54deg,
-                transparent 54deg
-            );
+            background: conic-gradient(from 244.8deg, transparent 0deg, transparent 0.01deg, #5d9e7e 0.01deg, #5d9e7e 54deg, transparent 54deg);
             animation-delay: 0.4s !important;
         }
-
-        /* Segment 5: Documentation - 8% */
+        /* Segment 5: Documentation - 8% — Space Grey */
         .segment-5 {
-            background: conic-gradient(
-                from 298.8deg,
-                transparent 0deg,
-                transparent 0.01deg,
-                #666666 0.01deg,
-                #666666 28.8deg,
-                transparent 28.8deg
-            );
+            background: conic-gradient(from 298.8deg, transparent 0deg, transparent 0.01deg, #384051 0.01deg, #384051 28.8deg, transparent 28.8deg);
             animation-delay: 0.5s !important;
         }
-
-        /* Segment 6: Backend - 6% */
+        /* Segment 6: Backend - 6% — Space Grey 70% */
         .segment-6 {
-            background: conic-gradient(
-                from 327.6deg,
-                transparent 0deg,
-                transparent 0.01deg,
-                #4d4d4d 0.01deg,
-                #4d4d4d 21.6deg,
-                transparent 21.6deg
-            );
+            background: conic-gradient(from 327.6deg, transparent 0deg, transparent 0.01deg, #6b7e9a 0.01deg, #6b7e9a 21.6deg, transparent 21.6deg);
             animation-delay: 0.6s !important;
         }
-
-        /* Segment 7: DevOps - 3% */
+        /* Segment 7: DevOps - 3% — Ojemba Blue mid */
         .segment-7 {
-            background: conic-gradient(
-                from 349.2deg,
-                transparent 0deg,
-                transparent 0.01deg,
-                #333333 0.01deg,
-                #333333 10.8deg,
-                transparent 10.8deg
-            );
+            background: conic-gradient(from 349.2deg, transparent 0deg, transparent 0.01deg, #003080 0.01deg, #003080 10.8deg, transparent 10.8deg);
             animation-delay: 0.7s !important;
         }
 
+        /* ─── 24. Pie Inner Donut ─── */
         .pie-chart-inner {
             position: absolute;
             top: 50%;
@@ -775,27 +478,29 @@
             width: 50%;
             height: 50%;
             border-radius: 50%;
-            background: #0a0a0a;
+            background: var(--pie-inner-bg);
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            transition: background 0.35s ease;
         }
 
         .pie-chart-inner .chart-total {
             font-size: 2rem;
             font-weight: 700;
-            color: #ffffff;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
         .pie-chart-inner .chart-label {
             font-size: 0.8rem;
-            color: #999;
+            color: var(--text-muted);
             text-align: center;
         }
 
+        /* ─── 25. Chart Legend & Stats ─── */
         .chart-legend {
             flex: 1;
             max-width: 400px;
@@ -810,10 +515,7 @@
             animation: none;
         }
 
-        .slide.active .legend-item {
-            animation: fadeInLegend 0.5s ease-out forwards;
-        }
-
+        .slide.active .legend-item { animation: fadeInLegend 0.5s ease-out forwards; }
         .slide.active .legend-item:nth-child(1) { animation-delay: 0.3s; }
         .slide.active .legend-item:nth-child(2) { animation-delay: 0.4s; }
         .slide.active .legend-item:nth-child(3) { animation-delay: 0.5s; }
@@ -823,10 +525,7 @@
         .slide.active .legend-item:nth-child(7) { animation-delay: 0.9s; }
 
         @keyframes fadeInLegend {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .legend-color {
@@ -844,80 +543,37 @@
             align-items: center;
         }
 
-        .legend-label {
-            color: #e0e0e0;
-            font-size: 0.95rem;
-        }
-
-        .legend-percentage {
-            color: #999;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+        .legend-label      { color: var(--text-secondary); font-size: 0.95rem; }
+        .legend-percentage { color: var(--text-muted);     font-size: 0.9rem; font-weight: 500; }
 
         .chart-stats {
             text-align: center;
             margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        .chart-stats span {
-            color: #fff;
-            font-weight: 500;
-        }
+        .chart-stats span { color: var(--text-primary); font-weight: 600; }
 
-        /* Responsive adjustments for chart */
         @media (max-width: 768px) {
-            .chart-container {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .pie-chart-wrapper {
-                width: 280px;
-                height: 280px;
-            }
-
-            .chart-legend {
-                max-width: 100%;
-            }
-
-            .pie-chart-inner .chart-total {
-                font-size: 1.5rem;
-            }
-
-            .pie-chart-inner .chart-label {
-                font-size: 0.7rem;
-            }
+            .chart-container { flex-direction: column; gap: 2rem; }
+            .pie-chart-wrapper { width: 280px; height: 280px; }
+            .chart-legend { max-width: 100%; }
+            .pie-chart-inner .chart-total { font-size: 1.5rem; }
+            .pie-chart-inner .chart-label { font-size: 0.7rem; }
         }
 
         @media (max-width: 480px) {
-            .pie-chart-wrapper {
-                width: 240px;
-                height: 240px;
-            }
-
-            .legend-label {
-                font-size: 0.85rem;
-            }
-
-            .legend-percentage {
-                font-size: 0.8rem;
-            }
-
-            .pie-chart-inner .chart-total {
-                font-size: 1.2rem;
-            }
-
-            .pie-chart-inner .chart-label {
-                font-size: 0.65rem;
-            }
+            .pie-chart-wrapper { width: 240px; height: 240px; }
+            .legend-label      { font-size: 0.85rem; }
+            .legend-percentage { font-size: 0.8rem; }
+            .pie-chart-inner .chart-total { font-size: 1.2rem; }
+            .pie-chart-inner .chart-label { font-size: 0.65rem; }
         }
 
-        /* Commands Slide Styles */
+        /* ─── 26. Commands Container ─── */
         .commands-container {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -925,20 +581,22 @@
             margin-top: 2rem;
         }
 
+        /* ─── 27. Command Section & Heading ─── */
         .command-section {
             display: flex;
             flex-direction: column;
         }
 
         .command-section h3 {
-            color: #ffffff;
+            color: var(--text-primary);
             font-size: 1.2rem;
             margin-bottom: 1rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 2px solid var(--section-rule);
             padding-bottom: 0.5rem;
             text-align: center;
         }
 
+        /* ─── 28. Command Grid ─── */
         .command-grid {
             display: flex;
             flex-direction: column;
@@ -946,25 +604,27 @@
             flex: 1;
         }
 
+        /* ─── 29. Command Item ─── */
         .command-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 0.8rem;
-            transition: all 0.3s ease;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
         .command-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
             transform: translateY(-1px);
         }
 
+        /* ─── 30. Command Name, Desc & Breakpoints ─── */
         .command-name {
-            color: #ffffff;
+            color: var(--accent);
             font-weight: 600;
             font-size: 0.9rem;
             margin-bottom: 0.3rem;
@@ -972,104 +632,43 @@
         }
 
         .command-desc {
-            color: #cccccc;
+            color: var(--text-secondary);
             font-size: 0.8rem;
             line-height: 1.4;
             flex: 1;
         }
 
-        /* Responsive Commands Layout */
         @media (max-width: 1024px) {
-            .commands-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
+            .commands-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
         }
 
         @media (max-width: 768px) {
-            .commands-container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .command-section h3 {
-                font-size: 1.2rem;
-                margin-bottom: 0.8rem;
-            }
-
-            .command-item {
-                padding: 0.8rem;
-            }
-
-            .command-name {
-                font-size: 0.9rem;
-            }
-
-            .command-desc {
-                font-size: 0.8rem;
-            }
+            .commands-container { grid-template-columns: 1fr; gap: 1.5rem; }
+            .command-section h3  { font-size: 1.2rem; margin-bottom: 0.8rem; }
+            .command-item        { padding: 0.8rem; }
+            .command-name        { font-size: 0.9rem; }
+            .command-desc        { font-size: 0.8rem; }
         }
 
         @media (max-width: 480px) {
-            .commands-container {
-                gap: 1rem;
-            }
-
-            .command-section h3 {
-                font-size: 1.1rem;
-                margin-bottom: 0.6rem;
-            }
-
-            .command-grid {
-                gap: 0.6rem;
-            }
-
-            .command-item {
-                padding: 0.7rem;
-            }
-
-            .command-name {
-                font-size: 0.85rem;
-                margin-bottom: 0.2rem;
-            }
-
-            .command-desc {
-                font-size: 0.75rem;
-                line-height: 1.3;
-            }
+            .commands-container  { gap: 1rem; }
+            .command-section h3  { font-size: 1.1rem; margin-bottom: 0.6rem; }
+            .command-grid        { gap: 0.6rem; }
+            .command-item        { padding: 0.7rem; }
+            .command-name        { font-size: 0.85rem; margin-bottom: 0.2rem; }
+            .command-desc        { font-size: 0.75rem; line-height: 1.3; }
         }
 
-        /* Landscape orientation adjustments for commands */
         @media (max-height: 500px) and (orientation: landscape) {
-            .commands-container {
-                gap: 1rem;
-            }
-
-            .command-section h3 {
-                font-size: 1rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .command-grid {
-                gap: 0.5rem;
-            }
-
-            .command-item {
-                padding: 0.6rem;
-            }
-
-            .command-name {
-                font-size: 0.8rem;
-                margin-bottom: 0.2rem;
-            }
-
-            .command-desc {
-                font-size: 0.7rem;
-                line-height: 1.2;
-            }
+            .commands-container  { gap: 1rem; }
+            .command-section h3  { font-size: 1rem; margin-bottom: 0.5rem; }
+            .command-grid        { gap: 0.5rem; }
+            .command-item        { padding: 0.6rem; }
+            .command-name        { font-size: 0.8rem; margin-bottom: 0.2rem; }
+            .command-desc        { font-size: 0.7rem; line-height: 1.2; }
         }
 
-        /* Installation Steps Styles */
+        /* ─── 31. Installation Steps ─── */
         .installation-steps {
             display: flex;
             flex-direction: column;
@@ -1077,8 +676,9 @@
             margin-top: 2rem;
         }
 
+        /* ─── 32. Install Section Heading ─── */
         .install-section h3 {
-            color: #ffffff;
+            color: var(--text-primary);
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
             display: flex;
@@ -1087,12 +687,13 @@
 
         .install-section h3::before {
             content: '→';
-            color: #ffffff;
+            color: var(--accent);
             margin-right: 0.5rem;
             font-size: 1.2rem;
+            font-weight: 700;
         }
 
-        /* Hands-on Practice Styles */
+        /* ─── 33. Practice Container ─── */
         .practice-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1100,88 +701,66 @@
             margin-top: 2rem;
         }
 
+        /* ─── 34. Practice Section Card ─── */
         .practice-section {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.3s ease;
+            transition: background 0.25s ease, border-color 0.25s ease;
         }
 
         .practice-section:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
         }
 
         .practice-section h3 {
-            color: #ffffff;
+            color: var(--text-primary);
             font-size: 1.2rem;
             margin-bottom: 1rem;
             text-align: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 2px solid var(--section-rule);
             padding-bottom: 0.5rem;
         }
 
+        /* ─── 35. Practice Step + Breakpoints ─── */
         .practice-step {
             margin-bottom: 1rem;
             padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--surface);
             border-radius: 8px;
-            border-left: 3px solid rgba(255, 255, 255, 0.3);
+            border-left: 3px solid var(--accent);
         }
 
         .practice-step .step-number {
-            color: #ffffff;
+            color: var(--accent);
             font-weight: 600;
             font-size: 0.9rem;
         }
 
         .practice-step .step-desc {
-            color: #cccccc;
+            color: var(--text-secondary);
             font-size: 0.85rem;
             line-height: 1.4;
             margin-top: 0.3rem;
         }
 
-        /* Responsive Installation and Practice */
         @media (max-width: 768px) {
-            .practice-container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .install-section h3 {
-                font-size: 1.2rem;
-            }
-
-            .practice-section {
-                padding: 1.2rem;
-            }
+            .practice-container   { grid-template-columns: 1fr; gap: 1.5rem; }
+            .install-section h3   { font-size: 1.2rem; }
+            .practice-section     { padding: 1.2rem; }
         }
 
         @media (max-width: 480px) {
-            .installation-steps {
-                gap: 1.2rem;
-            }
-
-            .install-section h3 {
-                font-size: 1.1rem;
-            }
-
-            .practice-container {
-                gap: 1rem;
-            }
-
-            .practice-section {
-                padding: 1rem;
-            }
-
-            .practice-section h3 {
-                font-size: 1.1rem;
-            }
+            .installation-steps   { gap: 1.2rem; }
+            .install-section h3   { font-size: 1.1rem; }
+            .practice-container   { gap: 1rem; }
+            .practice-section     { padding: 1rem; }
+            .practice-section h3  { font-size: 1.1rem; }
         }
 
-        /* Troubleshooting Styles */
+        /* ─── 36. Troubleshoot Container ─── */
         .troubleshoot-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1189,22 +768,24 @@
             margin-top: 2rem;
         }
 
+        /* ─── 37. Issue Item Card ─── */
         .issue-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 10px;
             padding: 1.2rem;
-            transition: all 0.3s ease;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
         }
 
         .issue-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
             transform: translateY(-2px);
         }
 
+        /* ─── 38. Issue Title & Solution ─── */
         .issue-title {
-            color: #ffffff;
+            color: var(--text-primary);
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: 0.8rem;
@@ -1212,64 +793,38 @@
         }
 
         .issue-solution {
-            color: #cccccc;
+            color: var(--text-secondary);
             font-size: 0.9rem;
             line-height: 1.4;
         }
 
-        .issue-solution strong {
-            color: #ffffff;
-        }
+        .issue-solution strong { color: var(--text-primary); }
 
         .issue-solution code {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
             padding: 0.2rem 0.4rem;
             border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
-            color: #ffffff;
+            color: var(--code-text);
         }
 
-        /* Responsive Troubleshooting */
         @media (max-width: 768px) {
-            .troubleshoot-container {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-
-            .issue-item {
-                padding: 1rem;
-            }
-
-            .issue-title {
-                font-size: 0.95rem;
-            }
-
-            .issue-solution {
-                font-size: 0.85rem;
-            }
+            .troubleshoot-container { grid-template-columns: 1fr; gap: 1.2rem; }
+            .issue-item   { padding: 1rem; }
+            .issue-title  { font-size: 0.95rem; }
+            .issue-solution { font-size: 0.85rem; }
         }
 
         @media (max-width: 480px) {
-            .troubleshoot-container {
-                gap: 1rem;
-            }
-
-            .issue-item {
-                padding: 0.8rem;
-            }
-
-            .issue-title {
-                font-size: 0.9rem;
-                margin-bottom: 0.6rem;
-            }
-
-            .issue-solution {
-                font-size: 0.8rem;
-            }
+            .troubleshoot-container { gap: 1rem; }
+            .issue-item    { padding: 0.8rem; }
+            .issue-title   { font-size: 0.9rem; margin-bottom: 0.6rem; }
+            .issue-solution { font-size: 0.8rem; }
         }
 
-        /* Resources Section Styles */
+        /* ─── 39. Resources Container ─── */
         .resources-container {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -1277,37 +832,34 @@
             margin-top: 2rem;
         }
 
+        /* ─── 40. Resource Section Card & Breakpoints ─── */
         .resource-section {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.3s ease;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
         }
 
         .resource-section:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
             transform: translateY(-2px);
         }
 
         .resource-section h3 {
-            color: #ffffff;
+            color: var(--text-primary);
             font-size: 1.2rem;
             margin-bottom: 1rem;
             text-align: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 2px solid var(--section-rule);
             padding-bottom: 0.5rem;
         }
 
-        .resource-section ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+        .resource-section ul { list-style: none; margin: 0; padding: 0; }
 
         .resource-section li {
-            color: #cccccc;
+            color: var(--text-secondary);
             font-size: 0.9rem;
             line-height: 1.5;
             margin-bottom: 0.8rem;
@@ -1317,56 +869,25 @@
 
         .resource-section li::before {
             content: '▸';
-            color: #ffffff;
+            color: var(--accent);
             font-weight: 600;
             margin-right: 0.5rem;
         }
 
-        /* Responsive Resources */
-        @media (max-width: 1024px) {
-            .resources-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.5rem;
-            }
-        }
+        @media (max-width: 1024px) { .resources-container { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
 
         @media (max-width: 768px) {
-            .resources-container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .resource-section {
-                padding: 1.2rem;
-            }
-
-            .resource-section h3 {
-                font-size: 1.1rem;
-            }
-
-            .resource-section li {
-                font-size: 0.85rem;
-            }
+            .resources-container  { grid-template-columns: 1fr; gap: 1.5rem; }
+            .resource-section     { padding: 1.2rem; }
+            .resource-section h3  { font-size: 1.1rem; }
+            .resource-section li  { font-size: 0.85rem; }
         }
 
         @media (max-width: 480px) {
-            .resources-container {
-                gap: 1rem;
-            }
-
-            .resource-section {
-                padding: 1rem;
-            }
-
-            .resource-section h3 {
-                font-size: 1rem;
-                margin-bottom: 0.8rem;
-            }
-
-            .resource-section li {
-                font-size: 0.8rem;
-                margin-bottom: 0.6rem;
-            }
+            .resources-container  { gap: 1rem; }
+            .resource-section     { padding: 1rem; }
+            .resource-section h3  { font-size: 1rem; margin-bottom: 0.8rem; }
+            .resource-section li  { font-size: 0.8rem; margin-bottom: 0.6rem; }
         }
 
         /* Comprehensive height-based responsive design */
@@ -1499,547 +1020,663 @@
             }
         }
 
-        /* Fix button z-index issues */
-        .export-btn, .navigation .nav-btn {
-            z-index: 1000;
-            position: relative;
+        /* ─── Title Slide Hero Layout ─── */
+        .title-hero {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
         }
 
-        .slide-counter {
-            z-index: 999;
+        .title-text { flex: 1; min-width: 0; }
+
+        .title-text h1 {
+            font-size: 4.8rem;
+            margin-bottom: 1.2rem;
         }
+
+        .title-text .subtitle {
+            font-size: 1.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-photo-section {
+            position: relative;
+            width: 370px;
+            height: 370px;
+            flex-shrink: 0;
+        }
+
+        .hero-photo-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 48px rgba(138,204,80,0.4), 0 0 90px rgba(138,204,80,0.15);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        body.light-mode .hero-photo-circle {
+            box-shadow: 0 0 48px rgba(17,99,85,0.32), 0 0 90px rgba(17,99,85,0.12);
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(0,19,66,0.82);
+            border: 1px solid rgba(138,204,80,0.38);
+            border-radius: 999px;
+            padding: 7px 16px;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            white-space: nowrap;
+            animation: bubbleFloat 3.5s ease-in-out infinite;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 2px 16px rgba(138,204,80,0.18);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        body.light-mode .bubble {
+            background: rgba(240,245,255,0.9);
+            border-color: rgba(17,99,85,0.35);
+            box-shadow: 0 2px 16px rgba(17,99,85,0.15);
+        }
+
+        .bubble-1 { top: 6%;   left: -10%; animation-delay: 0s;   }
+        .bubble-2 { top: 18%;  right: -14%; animation-delay: 0.6s; }
+        .bubble-3 { top: 68%;  left: -16%; animation-delay: 1.2s; }
+        .bubble-4 { bottom: 6%; right: -10%; animation-delay: 1.8s; }
+        .bubble-5 { top: 42%;  left: -20%; animation-delay: 2.4s; }
+        .bubble-6 { bottom: 22%; right: -16%; animation-delay: 0.9s; }
+
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0px); opacity: 0.85; }
+            50%       { transform: translateY(-8px); opacity: 1;    }
+        }
+
+        @media (max-width: 768px) {
+            .title-hero { flex-direction: column; align-items: flex-start; gap: 2rem; }
+            .title-text h1 { font-size: 3rem; }
+            .title-text .subtitle { font-size: 1.4rem; }
+            .hero-photo-section { width: 240px; height: 240px; align-self: center; }
+            .hero-photo-circle { width: 200px; height: 200px; }
+        }
+
+        @media (max-width: 480px) {
+            .title-text h1 { font-size: 2.4rem; }
+            .title-text .subtitle { font-size: 1.15rem; }
+            .hero-photo-section { width: 190px; height: 190px; }
+            .hero-photo-circle { width: 160px; height: 160px; }
+            .bubble { font-size: 0.72rem; padding: 5px 11px; }
+        }
+
     </style>
 </head>
 <body>
     <div class="slideshow-container">
         <!-- Slide 1: Title -->
         <div class="slide active">
-            <h1>Claude Code</h1>
-            <p class="subtitle">Best Practices Every Engineer Should Know</p>
-            <p style="margin-top: 4rem; color: #666;">Engineering Excellence with AI</p>
+            <div class="title-hero">
+                <!-- Left: Text Content -->
+                <div class="title-text">
+                    <h1><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="68" height="68" aria-label="Claude Code" style="vertical-align: middle; margin-right: 0.25em; margin-bottom: 0.1em;"><g transform="translate(50,50)"><rect x="-6.5" y="-36" width="13" height="29" rx="6.5" fill="#CC785C" transform="rotate(0)"/><rect x="-6.5" y="-36" width="13" height="29" rx="6.5" fill="#CC785C" transform="rotate(60)"/><rect x="-6.5" y="-36" width="13" height="29" rx="6.5" fill="#CC785C" transform="rotate(120)"/><rect x="-6.5" y="-36" width="13" height="29" rx="6.5" fill="#CC785C" transform="rotate(180)"/><rect x="-6.5" y="-36" width="13" height="29" rx="6.5" fill="#CC785C" transform="rotate(240)"/><rect x="-6.5" y="-36" width="13" height="29" rx="6.5" fill="#CC785C" transform="rotate(300)"/></g></svg>Beyond the Basics</h1>
+                    <p class="subtitle">The Claude Code Power User Workshop</p>
 
-            <div style="margin-top: 2rem;">
-                <div style="display: flex; align-items: center; gap: 10px; color: #999; font-size: 0.9rem;">
-                    <span>Created by: Avi Levi</span>
-                    <div class="profile-pic">
-                        <div class="pixel-avatar"></div>
+                    <div style="margin-top: 3rem;">
+                        <div style="color: var(--text-secondary); font-size: 1.05rem;">
+                            <span>By: Junior Hirwa</span>
+                        </div>
+                        <div style="margin-top: 0.4rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.4;">
+                            <div>August 18, 2026</div>
+                        </div>
                     </div>
                 </div>
-                <div style="margin-top: 0.5rem; color: #666; font-size: 0.8rem; line-height: 1.4;">
-                    <div>Created: September 23, 2025</div>
-                    <div>Updated: September 23, 2025</div>
+
+                <!-- Right: Photo with floating code bubbles -->
+                <div class="hero-photo-section">
+                    <div class="hero-photo-circle">
+                        <img src="me.png" alt="Junior Hirwa" />
+                    </div>
+                    <div class="bubble bubble-1">CLAUDE.md</div>
+                    <div class="bubble bubble-2">&gt;_ hooks</div>
+                    <div class="bubble bubble-3">⚡ agents</div>
+                    <div class="bubble bubble-4">--seq</div>
+                    <div class="bubble bubble-5">{...} ctx</div>
+                    <div class="bubble bubble-6">/skills</div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: What is Claude Code? -->
+        <!-- Slide 2: Agenda -->
         <div class="slide">
-            <h2>What is Claude Code?</h2>
-            <p class="subtitle">An AI-powered coding assistant in your terminal</p>
-            <ul>
-                <li>Command-line interface (CLI) tool by Anthropic</li>
-                <li>Helps with coding tasks, debugging, and project management</li>
-                <li>Understands your entire codebase context</li>
-                <li>Can read, write, and modify files automatically</li>
-                <li>Integrates with your existing development workflow</li>
-            </ul>
-        </div>
-
-        <!-- Slide 3: Installation & Setup -->
-        <div class="slide">
-            <h2>Installation & Setup</h2>
-            <p class="subtitle">Get up and running in under 2 minutes</p>
-
-            <div class="installation-steps">
-                <div class="install-section">
-                    <h3>1. Install Claude Code</h3>
-                    <div class="code-block">
-                        <span class="highlight"># Option 1: Using npm</span><br>
-                        npm install -g @anthropics/claude-code<br><br>
-                        <span class="highlight"># Option 2: Download from Anthropic</span><br>
-                        # Visit: https://claude.ai/code
-                    </div>
-                </div>
-
-                <div class="install-section">
-                    <h3>2. Authenticate</h3>
-                    <div class="code-block">
-                        claude auth login
-                    </div>
-                </div>
-
-                <div class="install-section">
-                    <h3>3. Start Coding!</h3>
-                    <div class="code-block">
-                        <span class="highlight"># Navigate to your project</span><br>
-                        cd your-project<br><br>
-                        <span class="highlight"># Start Claude Code</span><br>
-                        claude
-                    </div>
-                </div>
+            <h2>Agenda</h2>
+            <p class="subtitle">A map of today's topics — from context management fundamentals to advanced automation patterns</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 2.5rem; margin-top: 1.5rem;">
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">01</span><span>The Core Constraint</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">06</span><span>Hooks</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">02</span><span>CLAUDE.md Setup</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">07</span><span>MCP Servers</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">03</span><span>Prompting Like a Pro</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">08</span><span>Subagents</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">04</span><span>Verification Loops</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">09</span><span>Custom Skills &amp; Slash Commands</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">05</span><span>Parallelism &amp; Git Worktrees</span></div>
+                <div style="display: flex; align-items: baseline; gap: 0.6rem;"><span style="color: var(--card-num); font-size: 0.75rem; min-width: 1.4rem;">10</span><span>Resources &amp; Next Steps</span></div>
             </div>
         </div>
 
-        <!-- Slide 3: What is CLAUDE.md? -->
+        <!-- Slide 3: Introduction -->
         <div class="slide">
-            <h2>What is CLAUDE.md?</h2>
-            <p class="subtitle">Think of it as instructions for your AI assistant</p>
+            <h2>Introduction</h2>
+            <p class="subtitle">The mental model shift that separates power users from casual users — and the concrete practices that make it real</p>
             <ul>
-                <li><span class="highlight">A special file</span> you create in your project folder</li>
-                <li>Contains project-specific information for Claude</li>
-                <li>Like giving Claude a "user manual" for your project</li>
-                <li>Helps Claude understand your project's unique setup</li>
+                <li><span class="highlight">Who this is for:</span> developers already using Claude Code who want to move from casual use to deliberate, high-leverage workflows</li>
+                <li><span class="highlight">The gap:</span> most people treat Claude Code like a smarter autocomplete — the power users treat it like a junior engineer with full project context</li>
+                <li><span class="highlight">What changes:</span> not the tools, but the mental model — context management, structured prompting, and composable workflows compound over time</li>
+                <li><span class="highlight">What you'll leave with:</span> a concrete set of practices you can apply in your next session — CLAUDE.md, verification loops, parallelism, hooks, and more</li>
+                <li><span class="highlight">Format:</span> 18 focused topics, each standalone — drop in anywhere, revisit what's relevant to your current project</li>
             </ul>
         </div>
 
-        <!-- Slide 4: CLAUDE.md Example -->
+        <!-- Slide 4: The Core Constraint -->
         <div class="slide">
-            <h2>CLAUDE.md Example</h2>
-            <h3>Here's what a real CLAUDE.md file looks like:</h3>
-            <div class="code-block" style="max-width: none;">
-                <span class="highlight"># My React Project</span><br><br>
-                ## How to run the project<br>
-                npm start - starts development server<br>
-                npm test - runs tests<br>
-                npm run build - creates production build<br><br>
-                ## Code Style<br>
-                - Use TypeScript<br>
-                - Components go in src/components/<br>
-                - Use functional components with hooks<br><br>
-                ## Important Notes<br>
-                - Database is PostgreSQL<br>
-                - API endpoints are in src/api/
-            </div>
-        </div>
-
-        <!-- Slide 5: Why Use CLAUDE.md? -->
-        <div class="slide">
-            <h2>Why Use CLAUDE.md?</h2>
-            <h3>Benefits for beginners:</h3>
+            <h2>The Core Constraint</h2>
+            <p class="subtitle">The context window fills permanently with every exchange — every other technique in this workshop is a response to this single fact</p>
             <ul>
-                <li><span class="highlight">Saves time:</span> Claude knows your project setup instantly</li>
-                <li><span class="highlight">Prevents mistakes:</span> Claude follows your coding standards</li>
-                <li><span class="highlight">Better suggestions:</span> Claude understands your tech stack</li>
-                <li><span class="highlight">Team consistency:</span> Everyone uses the same guidelines</li>
-                <li><span class="highlight">Documentation:</span> Your project is self-documenting</li>
+                <li><span class="highlight">Context fills fast:</span> every message, file read, and command output stays in the conversation permanently</li>
+                <li><span class="highlight">Quality degrades:</span> performance drops noticeably past ~40% context usage — stay well under for critical work</li>
+                <li><span class="highlight">"Context rot":</span> stale, conflicting info from failed attempts actively poisons later responses</li>
+                <li><span class="highlight">Fresh session wins:</span> a new session with a sharp prompt almost always beats a long session patching mistakes</li>
+                <li><span class="highlight">Shape context proactively:</span> CLAUDE.md, .claudeignore, and Skills determine what loads before Claude even starts</li>
             </ul>
         </div>
 
-        <!-- Slide 6: Getting Started -->
+        <!-- Slide 5: CLAUDE.md Setup -->
         <div class="slide">
-            <h2>Getting Started - Step by Step</h2>
-            <h3>For complete beginners:</h3>
+            <h2>CLAUDE.md: The Highest-Leverage Setup</h2>
+            <p class="subtitle">A project-level file Claude reads automatically before every session — the most leveraged place to encode your codebase rules, commands, and constraints</p>
             <ul>
-                <li><span class="highlight">Step 1:</span> Install Claude Code from Anthropic</li>
-                <li><span class="highlight">Step 2:</span> Open your terminal/command prompt</li>
-                <li><span class="highlight">Step 3:</span> Navigate to your project folder</li>
-                <li><span class="highlight">Step 4:</span> Create a CLAUDE.md file</li>
-                <li><span class="highlight">Step 5:</span> Start chatting with Claude about your code!</li>
+                <li>Run <span class="highlight">/init</span> to generate a starter, then prune it ruthlessly</li>
+                <li>Target <span class="highlight">under 200 lines</span> — only what Claude genuinely can't infer from the code</li>
+                <li>Ask of each line: <em>"Would removing this cause Claude to make mistakes?"</em> If not, cut it</li>
+                <li>Layer it: project root + <span class="highlight">~/.claude/CLAUDE.md</span> (global) + subdirectory files via <span class="highlight">@path</span></li>
+                <li>Version-control it — the whole team can contribute and review changes</li>
+                <li>After every correction: <em>"Update CLAUDE.md so you don't make that mistake again"</em></li>
+                <li>Rebuild every ~6 months — outdated constraints limit newer models</li>
             </ul>
         </div>
 
-        <!-- Slide 7: Optimal Workflow -->
+        <!-- Slide 6: CLAUDE.md What Goes In -->
         <div class="slide">
-            <h2>The Best Way to Work with Claude</h2>
-            <h3>Explore → Plan → Code → Commit</h3>
-            <ul>
-                <li><span class="highlight">"Read my files first"</span> - Let Claude understand your code</li>
-                <li><span class="highlight">"Don't write code yet"</span> - Plan before coding</li>
-                <li><span class="highlight">"Think about this"</span> - Use analysis modes</li>
-                <li><span class="highlight">"Break this down"</span> - Make tasks smaller</li>
-            </ul>
-        </div>
-
-        <!-- Slide 8: Real Examples -->
-        <div class="slide">
-            <h2>What Can You Ask Claude?</h2>
-            <h3>Example conversations:</h3>
-            <div class="code-block" style="max-width: none;">
-                <span class="highlight">You:</span> "Add a login button to my homepage"<br>
-                <span class="highlight">Claude:</span> "I'll read your homepage file first, then add a styled login button that matches your design."<br><br>
-                <span class="highlight">You:</span> "Why isn't my code working?"<br>
-                <span class="highlight">Claude:</span> "Let me check your files and find the bug. I see the issue on line 23..."<br><br>
-                <span class="highlight">You:</span> "Make this code cleaner"<br>
-                <span class="highlight">Claude:</span> "I'll refactor this following your CLAUDE.md style guide."
-            </div>
-        </div>
-
-        <!-- Slide 9: Testing Made Easy -->
-        <div class="slide">
-            <h2>Testing Made Easy</h2>
-            <h3>What is Test-Driven Development (TDD)?</h3>
-            <ul>
-                <li><span class="highlight">Write the test first</span> - Describe what you want your code to do</li>
-                <li><span class="highlight">Watch it fail</span> - The test should fail because you haven't written the code yet</li>
-                <li><span class="highlight">Write minimal code</span> - Just enough to make the test pass</li>
-                <li><span class="highlight">Improve the code</span> - Make it cleaner while keeping tests green</li>
-            </ul>
-            <p style="margin-top: 2rem; color: #999;">
-                Red (Fail) → Green (Pass) → Refactor (Clean)
-            </p>
-        </div>
-
-        <!-- Slide 10: Essential Commands -->
-        <div class="slide">
-            <h2>Essential Claude Code Commands</h2>
-            <p class="subtitle">Master these commands to boost your productivity</p>
-
-            <div class="commands-container">
-                <div class="command-section">
-                    <h3>Session Management</h3>
-                    <div class="command-grid">
-                        <div class="command-item">
-                            <div class="command-name">/clear</div>
-                            <div class="command-desc">Start fresh conversation when switching topics</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/compact</div>
-                            <div class="command-desc">Compress long conversations while preserving context</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/exit</div>
-                            <div class="command-desc">End session and return to terminal</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/resume</div>
-                            <div class="command-desc">Resume previous conversation session</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="command-section">
-                    <h3>Information & Setup</h3>
-                    <div class="command-grid">
-                        <div class="command-item">
-                            <div class="command-name">/help</div>
-                            <div class="command-desc">Show available commands and options</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/init</div>
-                            <div class="command-desc">Initialize Claude Code in new project</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/model</div>
-                            <div class="command-desc">Switch between AI models (sonnet/opus)</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">/usage</div>
-                            <div class="command-desc">Check token usage and costs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="command-section">
-                    <h3>Coding Tasks</h3>
-                    <div class="command-grid">
-                        <div class="command-item">
-                            <div class="command-name">"Read this file"</div>
-                            <div class="command-desc">Have Claude examine your code</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">"Fix this bug"</div>
-                            <div class="command-desc">Debug and resolve code issues</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">"Explain code"</div>
-                            <div class="command-desc">Get detailed code explanations</div>
-                        </div>
-                        <div class="command-item">
-                            <div class="command-name">"Create tests"</div>
-                            <div class="command-desc">Generate unit and integration tests</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: Hands-on Practice -->
-        <div class="slide">
-            <h2>Let's Practice Together!</h2>
-            <p class="subtitle">Follow along with these interactive exercises</p>
-
+            <h2>CLAUDE.md: What Goes In, What Stays Out</h2>
+            <p class="subtitle">Build commands, architecture decisions, and non-obvious gotchas belong in — standard language patterns, full docs, and things the code already shows belong out</p>
             <div class="practice-container">
                 <div class="practice-section">
-                    <h3>Exercise 1: Basic Setup</h3>
+                    <h3>✅ Include</h3>
                     <div class="practice-step">
-                        <div class="step-number">Step 1:</div>
-                        <div class="step-desc">Open terminal in any project folder</div>
+                        <div class="step-number">Build, test & lint commands</div>
+                        <div class="step-desc">Project-specific scripts Claude can't guess: npm run dev, make test, ./gradlew build</div>
                     </div>
                     <div class="practice-step">
-                        <div class="step-number">Step 2:</div>
-                        <div class="step-desc">Run <code>/init</code> to set up Claude Code</div>
+                        <div class="step-number">Non-default code style</div>
+                        <div class="step-desc">Linting rules, formatter config, naming conventions that differ from language standards</div>
                     </div>
                     <div class="practice-step">
-                        <div class="step-number">Step 3:</div>
-                        <div class="step-desc">Ask: "Create a CLAUDE.md for this project"</div>
+                        <div class="step-number">Architectural decisions</div>
+                        <div class="step-desc">Why certain patterns are used, key constraints, branch naming, PR format</div>
                     </div>
                     <div class="practice-step">
-                        <div class="step-number">Step 4:</div>
-                        <div class="step-desc">Review and customize the generated file</div>
+                        <div class="step-number">Common gotchas</div>
+                        <div class="step-desc">Recurring mistakes, known workarounds, hidden constraints that aren't obvious from the code</div>
                     </div>
                 </div>
-
                 <div class="practice-section">
-                    <h3>Exercise 2: Code Analysis</h3>
+                    <h3>❌ Exclude</h3>
                     <div class="practice-step">
-                        <div class="step-number">Step 1:</div>
-                        <div class="step-desc">Choose any code file in your project</div>
+                        <div class="step-number">Standard conventions</div>
+                        <div class="step-desc">Language defaults Claude already knows — TypeScript patterns, Python idioms, React hooks</div>
                     </div>
                     <div class="practice-step">
-                        <div class="step-number">Step 2:</div>
-                        <div class="step-desc">Ask: "Read and explain this file"</div>
+                        <div class="step-number">Full API docs</div>
+                        <div class="step-desc">Link to documentation instead — never paste large reference blocks</div>
                     </div>
                     <div class="practice-step">
-                        <div class="step-number">Step 3:</div>
-                        <div class="step-desc">Follow up: "Suggest improvements"</div>
+                        <div class="step-number">Frequently changing things</div>
+                        <div class="step-desc">Version numbers, team-specific ephemera, configs that shift often</div>
                     </div>
                     <div class="practice-step">
-                        <div class="step-number">Step 4:</div>
-                        <div class="step-desc">Try: "Create tests for this code"</div>
+                        <div class="step-number">What the code already shows</div>
+                        <div class="step-desc">Patterns visible in the codebase — Claude can read the files directly</div>
                     </div>
                 </div>
             </div>
-
-            <div style="text-align: center; margin-top: 2rem; color: #999; font-style: italic;">
-                ⏱️ Take 5-10 minutes to try both exercises
-            </div>
         </div>
 
-        <!-- Slide 12: Pro Tips -->
+        <!-- Slide 7: Verification Loops -->
         <div class="slide">
-            <h2>Pro Tips for Better Results</h2>
+            <h2>Verification Loops: The #1 Quality Tip</h2>
+            <p class="subtitle">Asking Claude to verify its output against a concrete criterion — running tests, linting, checking a diff — catches errors before they compound into bigger ones</p>
             <ul>
-                <li><span class="highlight">Be specific:</span> "Add a red button" vs "Add styling"</li>
-                <li><span class="highlight">Show examples:</span> Upload screenshots or paste code samples</li>
-                <li><span class="highlight">Give context:</span> "This is for a mobile app" vs "This is for a website"</li>
-                <li><span class="highlight">Ask questions:</span> "What's the best way to..." instead of guessing</li>
-                <li><span class="highlight">Iterate:</span> Refine your request if the first attempt isn't perfect</li>
+                <li><span class="highlight">The problem:</span> Claude stops when things "look done" — without a signal, you become the verification loop</li>
+                <li><span class="highlight">Provide:</span> tests, a build command, linter, diff script, or screenshot to compare against</li>
+                <li>Tell it explicitly: <em>"Run the tests and fix until they all pass — don't stop before that"</em></li>
+                <li>Ask for <span class="highlight">evidence</span>, not assertions: <em>"Show me the test output"</em> vs accepting "it's done"</li>
+                <li>Use <span class="highlight">Stop hooks</span> to block completion until checks pass — hooks are enforced, instructions aren't</li>
+                <li><span class="highlight">TDD workflow:</span> write failing tests first → implement → Claude runs until green — eliminates whole classes of failure</li>
             </ul>
         </div>
 
-        <!-- Slide 12: Troubleshooting Common Issues -->
+        <!-- Slide 8: The Power Workflow -->
         <div class="slide">
-            <h2>Troubleshooting Common Issues</h2>
-            <p class="subtitle">Quick fixes for workshop scenarios</p>
-
-            <div class="troubleshoot-container">
-                <div class="issue-item">
-                    <div class="issue-title">🚫 "Command not found: claude"</div>
-                    <div class="issue-solution">
-                        <strong>Solution:</strong> Restart terminal or run: <code>export PATH=$PATH:/usr/local/bin</code>
-                    </div>
+            <h2>The Power Workflow</h2>
+            <p class="subtitle">A four-phase loop — explore the codebase, plan explicitly, implement incrementally, commit often — that consistently produces better results than diving straight into code</p>
+            <div class="installation-steps">
+                <div class="install-section">
+                    <h3>Explore</h3>
+                    <p>Have Claude read the relevant files first. Don't describe — let it see. <span class="highlight">@mention files</span> to attach them directly, saving Read calls and improving accuracy.</p>
                 </div>
-
-                <div class="issue-item">
-                    <div class="issue-title">⚠️ "API Key not found"</div>
-                    <div class="issue-solution">
-                        <strong>Solution:</strong> Run <code>/help</code> then authenticate with <code>claude auth login</code>
-                    </div>
+                <div class="install-section">
+                    <h3>Plan</h3>
+                    <p>Enter <span class="highlight">Plan mode</span> (Shift+Tab) — Claude thinks without editing. Review the plan, edit it with Ctrl+G if needed, and approve before any code is written.</p>
                 </div>
-
-                <div class="issue-item">
-                    <div class="issue-title">🐌 "Claude is responding slowly"</div>
-                    <div class="issue-solution">
-                        <strong>Solution:</strong> Use <code>/compact</code> to compress conversation or <code>/clear</code> to start fresh
-                    </div>
+                <div class="install-section">
+                    <h3>Implement</h3>
+                    <p>Exit plan mode and let Claude execute — with a <span class="highlight">verification loop built in</span>. If things go sideways, return to plan mode and re-plan rather than pushing through.</p>
                 </div>
-
-                <div class="issue-item">
-                    <div class="issue-title">❌ "Claude can't find my files"</div>
-                    <div class="issue-solution">
-                        <strong>Solution:</strong> Make sure you're in the project directory and files exist. Use relative paths.
-                    </div>
-                </div>
-
-                <div class="issue-item">
-                    <div class="issue-title">💸 "High token usage"</div>
-                    <div class="issue-solution">
-                        <strong>Solution:</strong> Check <code>/usage</code>, use <code>/clear</code> frequently, switch to sonnet with <code>/model</code>
-                    </div>
-                </div>
-
-                <div class="issue-item">
-                    <div class="issue-title">🔄 "Lost my conversation context"</div>
-                    <div class="issue-solution">
-                        <strong>Solution:</strong> Try <code>/resume</code> to restore or recreate CLAUDE.md to give context
-                    </div>
+                <div class="install-section">
+                    <h3>Commit</h3>
+                    <p>Ask Claude to commit with a <span class="highlight">meaningful message</span> and open a PR. Committing as you go creates restore points — cheap insurance for risky operations.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 13: Common Beginner Mistakes -->
+        <!-- Slide 9: Prompting Like a Pro -->
         <div class="slide">
-            <h2>Common Mistakes to Avoid</h2>
+            <h2>Prompting Like a Pro</h2>
+            <p class="subtitle">Giving Claude explicit context, a clear scope, and a concrete output format removes guesswork and produces precise, useful results on the first try</p>
             <ul>
-                <li><span class="highlight">Don't skip CLAUDE.md</span> - It saves hours of explaining your project</li>
-                <li><span class="highlight">Don't rush into coding</span> - Let Claude explore your codebase first</li>
-                <li><span class="highlight">Don't give vague instructions</span> - Be specific about what you want</li>
-                <li><span class="highlight">Don't ignore errors</span> - Ask Claude to explain and fix them</li>
-                <li><span class="highlight">Don't work alone</span> - Use Claude as your coding partner</li>
+                <li><span class="highlight">@mention files, not descriptions</span> — <code>@auth.ts</code> attaches the file and saves a Read call; describing paths makes Claude search and guess</li>
+                <li><span class="highlight">Name existing patterns</span> — "Follow the style of HotDogWidget.php" gives Claude a concrete target, not an abstraction</li>
+                <li><span class="highlight">Scope tightly</span> — include the file, the edge cases, the constraints, and what "done" looks like before Claude touches code</li>
+                <li><span class="highlight">Paste screenshots</span> — for UI work, a screenshot beats 300 words of description every time</li>
+                <li><span class="highlight">Three-part bug reports</span> — symptoms + likely location + what "fixed" looks like; three-part prompts get three-part fixes</li>
+                <li><span class="highlight">Pipe data in</span> — <code>cat error.log | claude ...</code> or allowlist URLs via <code>/permissions</code> — don't make Claude imagine the input</li>
             </ul>
         </div>
 
-        <!-- Slide 13: What You Can Build -->
+        <!-- Slide 10: Advanced Prompt Patterns -->
         <div class="slide">
-            <h2>What Can You Build with Claude?</h2>
-            <h3>Projects perfect for beginners:</h3>
+            <h2>Advanced Prompt Patterns</h2>
+            <p class="subtitle">Role-priming, constraint-setting, and structured output formats — techniques that reliably unlock deeper reasoning and more predictable responses</p>
             <ul>
-                <li><span class="highlight">Personal websites</span> - Portfolio, blog, landing pages</li>
-                <li><span class="highlight">Simple web apps</span> - To-do lists, calculators, games</li>
-                <li><span class="highlight">Mobile apps</span> - With React Native or Flutter</li>
-                <li><span class="highlight">Automation scripts</span> - File organizers, data processors</li>
-                <li><span class="highlight">APIs and backends</span> - Server-side applications</li>
+                <li><span class="highlight">ultrathink</span> — prefix complex tasks with "ultrathink this" to trigger deep reasoning before Claude writes a single line</li>
+                <li><span class="highlight">Scrap and redo</span> — "This approach isn't working. Scrap it and implement the elegant solution." resets bad momentum faster than patching</li>
+                <li><span class="highlight">Prove it works</span> — "Prove to me this works" forces Claude to run verification, not just assert success</li>
+                <li><span class="highlight">Grill me on these changes</span> — ask Claude to adversarially review its own output; it catches issues it glossed over the first time</li>
+                <li><span class="highlight">TDD-first</span> — "Write the failing tests first, then implement until green" eliminates whole classes of correctness failure</li>
+                <li><span class="highlight">Re-plan on drift</span> — when implementation wanders, Shift+Tab back to plan mode and re-plan rather than layering more prompts on a broken path</li>
             </ul>
         </div>
 
-        <!-- Slide 14: Usage Statistics -->
+        <!-- Slide 11: Parallelism -->
         <div class="slide">
-            <h2>How Developers Use Claude Code</h2>
-            <p class="subtitle">Based on 115,000+ developers processing 195M lines weekly</p>
+            <h2>Parallelism</h2>
+            <p class="subtitle">Splitting independent tasks across multiple Claude sessions and running them simultaneously — the fastest way to multiply your output without any extra cost</p>
+            <ul>
+                <li><span class="highlight">Run 3–5 sessions simultaneously</span> — each working an independent task; your throughput multiplies while you review one session's output</li>
+                <li><span class="highlight">Number your tabs</span> — "Claude 1 is on auth, Claude 2 is on tests, Claude 3 is on the migration" — keeps your mental model clear under load</li>
+                <li><span class="highlight">System notifications</span> — enable them so sessions alert you when they need input; you stay unblocked without constant tab-switching</li>
+                <li><span class="highlight">Web + CLI in parallel</span> — <code>claude.ai/code</code> sessions and local CLI sessions can run concurrently and hand off work between them</li>
+                <li><span class="highlight">Subagents for noisy work</span> — exploratory searches, full test runs, codebase scans — offload to a subagent so your main context stays clean</li>
+                <li><span class="highlight">Independent tasks only</span> — parallelism breaks when sessions share files without coordination; keep work isolated or commit between handoffs</li>
+            </ul>
+        </div>
 
-            <div class="chart-container">
-                <div class="pie-chart-wrapper">
-                    <div class="pie-chart-outer">
-                        <div class="pie-segment segment-1"></div>
-                        <div class="pie-segment segment-2"></div>
-                        <div class="pie-segment segment-3"></div>
-                        <div class="pie-segment segment-4"></div>
-                        <div class="pie-segment segment-5"></div>
-                        <div class="pie-segment segment-6"></div>
-                        <div class="pie-segment segment-7"></div>
+        <!-- Slide 12: Git Worktrees -->
+        <div class="slide">
+            <h2>Git Worktrees</h2>
+            <p class="subtitle">Multiple working directories checked out from the same repo simultaneously — each Claude session gets its own isolated branch so agents never step on each other</p>
+            <ul>
+                <li><span class="highlight">The problem with shared checkouts</span> — two Claude sessions editing the same branch create merge conflicts and corrupt each other's context</li>
+                <li><span class="highlight">Worktrees give each session its own branch</span> — <code>git worktree add ../feature-x feature-x</code> spins up a clean copy in seconds</li>
+                <li><span class="highlight">Native support</span> — <code>claude --worktree</code> creates and enters a worktree automatically; no manual git plumbing required</li>
+                <li><span class="highlight">Merge when done, not before</span> — each session commits cleanly to its own branch; you review and merge after, not during</li>
+                <li><span class="highlight">Disposable by design</span> — <code>git worktree remove</code> cleans up; no lingering state to untangle if a task is abandoned</li>
+                <li><span class="highlight">Combine with parallelism</span> — worktree-per-session is the pattern that makes 3–5 concurrent sessions actually safe at scale</li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: Hooks -->
+        <div class="slide">
+            <h2>Hooks</h2>
+            <p class="subtitle">Shell scripts that fire on specific Claude events — the only way to guarantee rules are always enforced, because hooks run unconditionally unlike instructions Claude can ignore</p>
+            <div class="practice-container">
+                <div class="practice-section">
+                    <h3>Hook Event Types</h3>
+                    <div class="practice-step">
+                        <div class="step-number">PreToolUse</div>
+                        <div class="step-desc">Runs before any tool call — block writes to protected files, scrub credentials, validate format</div>
                     </div>
-                    <div class="pie-chart-inner">
-                        <div class="chart-total">115K+</div>
-                        <div class="chart-label">Active<br>Developers</div>
+                    <div class="practice-step">
+                        <div class="step-number">PostToolUse</div>
+                        <div class="step-desc">Runs after a tool completes — auto-format on write, run linter after edit, log changes</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Stop</div>
+                        <div class="step-desc">Runs when Claude finishes a turn — block completion until tests pass, enforce commit hygiene</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Notification</div>
+                        <div class="step-desc">Fires on system notifications — Slack alerts, desktop pings when a session needs input</div>
                     </div>
                 </div>
-
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #ffffff;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">UI/Frontend Development</span>
-                            <span class="legend-percentage">28%</span>
-                        </div>
+                <div class="practice-section">
+                    <h3>Example: Stop Hook</h3>
+                    <div class="code-block" style="margin: 0; max-width: none; font-size: 0.85rem;">
+                        {<br>
+                        &nbsp;&nbsp;"hooks": {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"Stop": [{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"matcher": "",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hooks": [{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type": "command",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "npm test"<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}]<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}]<br>
+                        &nbsp;&nbsp;}<br>
+                        }
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #e0e0e0;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">Code Migration & Refactoring</span>
-                            <span class="legend-percentage">22%</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #b3b3b3;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">Testing & TDD</span>
-                            <span class="legend-percentage">18%</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #808080;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">Bug Fixing & Debugging</span>
-                            <span class="legend-percentage">15%</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #666666;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">Documentation</span>
-                            <span class="legend-percentage">8%</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #4d4d4d;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">Backend Development</span>
-                            <span class="legend-percentage">6%</span>
-                        </div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background: #333333;"></div>
-                        <div class="legend-text">
-                            <span class="legend-label">DevOps & Automation</span>
-                            <span class="legend-percentage">3%</span>
-                        </div>
-                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">Runs your test suite every time Claude finishes a turn. If tests fail, Claude is blocked from completing — no assertions of success without proof.</p>
                 </div>
-            </div>
-
-            <div class="chart-stats">
-                <span>79%</span> of conversations involve automation vs <span>49%</span> on Claude.ai
             </div>
         </div>
 
-        <!-- Slide 17: Next Steps & Resources -->
+        <!-- Slide 14: Token & Session Efficiency -->
         <div class="slide">
-            <h2>Next Steps & Resources</h2>
-            <p class="subtitle">Continue your Claude Code journey</p>
+            <h2>Token & Session Efficiency</h2>
+            <p class="subtitle">Strategies to keep context lean — using .claudeignore, compacting summaries, and knowing when to start a fresh session rather than patching a degraded one</p>
+            <div class="practice-container">
+                <div class="practice-section">
+                    <h3>Session Commands</h3>
+                    <div class="practice-step">
+                        <div class="step-number">/clear</div>
+                        <div class="step-desc">Start fresh between unrelated tasks — stale context is debt, not help</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">/compact</div>
+                        <div class="step-desc">Compress before a break (cache expires ~5 min); use /rewind to undo without summarizing</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Set model at start</div>
+                        <div class="step-desc">Changing model or effort mid-conversation busts the prompt cache — pick once, stick with it</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">/context</div>
+                        <div class="step-desc">Run in a fresh session to audit what's loaded; trim anything Claude doesn't actually need</div>
+                    </div>
+                </div>
+                <div class="practice-section">
+                    <h3>.claudeignore</h3>
+                    <div class="code-block" style="margin: 0; max-width: none; font-size: 0.85rem;">
+                        # Heavy dirs that slow reads<br>
+                        node_modules/<br>
+                        .git/<br>
+                        dist/<br>
+                        build/<br>
+                        <br>
+                        # Generated files<br>
+                        *.lock<br>
+                        coverage/<br>
+                        *.min.js<br>
+                        <br>
+                        # Secrets<br>
+                        .env*<br>
+                        *.pem
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">Works like .gitignore — Claude skips these entirely. Keeps context focused on your actual source.</p>
+                </div>
+            </div>
+        </div>
 
+        <!-- Slide 15: Custom Skills & Slash Commands -->
+        <div class="slide">
+            <h2>Custom Skills & Slash Commands</h2>
+            <p class="subtitle">Markdown files that become slash commands — package any repeatable workflow once and invoke it with a single command, loading nothing until it's actually needed</p>
+            <div class="practice-container">
+                <div class="practice-section">
+                    <h3>Slash Commands</h3>
+                    <div class="practice-step">
+                        <div class="step-number">Live in .claude/commands/</div>
+                        <div class="step-desc">Any .md file becomes a /command — called with /command-name</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Pass arguments</div>
+                        <div class="step-desc">Use $ARGUMENTS in the file — "/review auth.ts" injects the filename automatically</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Common uses</div>
+                        <div class="step-desc">/security-review, /write-tests, /summarize-pr — any prompt you type more than twice</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Team-shareable</div>
+                        <div class="step-desc">Commit the commands/ dir — everyone on the team gets the same shortcuts instantly</div>
+                    </div>
+                </div>
+                <div class="practice-section">
+                    <h3>Skills</h3>
+                    <div class="practice-step">
+                        <div class="step-number">Richer than commands</div>
+                        <div class="step-desc">Structured instructions with tool guidance, MCP calls, and multi-step workflows</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Zero cost when idle</div>
+                        <div class="step-desc">Skills load only when invoked — no context overhead for instructions you're not using</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Built-in examples</div>
+                        <div class="step-desc">/sc:build, /sc:test, /sc:research — study these as templates for your own</div>
+                    </div>
+                    <div class="practice-step">
+                        <div class="step-number">Build your own</div>
+                        <div class="step-desc">Save a .md in .claude/skills/ — any instructions you'd otherwise repeat every session</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Subagents -->
+        <div class="slide">
+            <h2>Subagents</h2>
+            <p class="subtitle">Spawning a separate Claude session to handle a bounded task — keeping the main session clean while offloading work that would pollute it with irrelevant context</p>
+            <ul>
+                <li><span class="highlight">The problem they solve</span> — exploratory work (codebase searches, full test runs, doc reads) floods your main context with noise before the real task even starts</li>
+                <li><span class="highlight">Subagents get their own context</span> — they run isolated, do the work, and return a clean summary; the main session never sees the mess</li>
+                <li><span class="highlight">Spawn with the Agent tool</span> — or via <code>claude -p "..."</code> for headless one-shot tasks from the CLI</li>
+                <li><span class="highlight">Specialist roles</span> — security-engineer, backend-architect, code-reviewer — route work to agents tuned for that domain</li>
+                <li><span class="highlight">Parallel subagents</span> — fan out multiple subagents simultaneously, collect results, synthesize in the main session</li>
+                <li><span class="highlight">Cost awareness</span> — each subagent is a full session; use them for genuinely expensive work, not trivial lookups you could <code>@mention</code> a file for</li>
+            </ul>
+        </div>
+
+        <!-- Slide 17: MCP Servers -->
+        <div class="slide">
+            <h2>MCP Servers</h2>
+            <p class="subtitle">Plugins that give Claude real-time access to your database, browser, APIs, and external services — extending what it can do far beyond reading and writing files</p>
+            <div class="commands-container">
+                <div class="command-section">
+                    <h3>Dev Tools</h3>
+                    <div class="command-grid">
+                        <div class="command-item">
+                            <div class="command-name">github</div>
+                            <div class="command-desc">PRs, issues, code search, repo management</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">postgres / sqlite</div>
+                            <div class="command-desc">Query your database directly from Claude</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">filesystem</div>
+                            <div class="command-desc">Scoped file access beyond the project root</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">docker</div>
+                            <div class="command-desc">Manage containers and images from Claude</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="command-section">
+                    <h3>Productivity</h3>
+                    <div class="command-grid">
+                        <div class="command-item">
+                            <div class="command-name">slack</div>
+                            <div class="command-desc">Read channels, post messages, search history</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">linear / jira</div>
+                            <div class="command-desc">Create and update issues without leaving Claude</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">google-drive</div>
+                            <div class="command-desc">Read docs and sheets as context</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">browser</div>
+                            <div class="command-desc">Fetch and interact with live web pages</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="command-section">
+                    <h3>Best Practices</h3>
+                    <div class="command-grid">
+                        <div class="command-item">
+                            <div class="command-name">Disable unused servers</div>
+                            <div class="command-desc">Each loaded MCP adds context overhead — only enable what this session needs</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">Scope permissions</div>
+                            <div class="command-desc">Read-only where write isn't needed — principle of least privilege</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">Build your own</div>
+                            <div class="command-desc">Any tool with a REST API can become an MCP server</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-name">registry.mcp.run</div>
+                            <div class="command-desc">1000+ community servers — check before building from scratch</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: MEMORY.md & Auto-Memory -->
+        <div class="slide">
+            <h2>MEMORY.md &amp; Auto-Memory</h2>
+            <p class="subtitle">A structured memory file Claude reads and writes across sessions — storing user preferences, project decisions, and recurring context so nothing important has to be re-explained</p>
+            <ul>
+                <li><span class="highlight">What it is</span> — a structured memory system Claude reads at the start of every session; unlike CLAUDE.md (project rules), memory stores evolving facts that update over time</li>
+                <li><span class="highlight">Auto-Memory (2026)</span> — Claude can now write and update its own memory automatically based on what it learns in your conversations</li>
+                <li><span class="highlight">Scoped per project</span> — memory lives in <code>.claude/projects/.../memory/</code>; individual topic files (e.g. <code>user.md</code>, <code>feedback.md</code>) and a <code>MEMORY.md</code> index</li>
+                <li><span class="highlight">What to store</span> — architectural decisions + rationale, team conventions that differ from defaults, recurring patterns, known codebase gotchas</li>
+                <li><span class="highlight">What NOT to store</span> — ephemeral state, task lists, anything already in code or CLAUDE.md — save the non-obvious stuff only</li>
+                <li><span class="highlight">The payoff</span> — cross-session continuity: Claude starts informed instead of blank, you stop re-explaining context every time</li>
+            </ul>
+        </div>
+
+        <!-- Slide 19: Power User Mindset -->
+        <div class="slide">
+            <h2>Power User Mindset</h2>
+            <p class="subtitle">Treating Claude as a collaborator with full project context rather than a smart search box — the habits, mental models, and defaults that compound into dramatically better results over time</p>
+            <div class="practice-container">
+                <div class="practice-section">
+                    <h3>DO</h3>
+                    <div class="practice-step">Give Claude a full mental model upfront — codebase layout, constraints, goals</div>
+                    <div class="practice-step">Use verification loops: "does this pass tests / render correctly / match the spec?"</div>
+                    <div class="practice-step">Commit early and often — give Claude clean restore points to work from</div>
+                    <div class="practice-step">Let Claude explore before it plans; let it plan before it codes</div>
+                    <div class="practice-step">Delegate expensive research to subagents, keep main context clean</div>
+                    <div class="practice-step">Treat Claude like a senior engineer: assign outcomes, not keystrokes</div>
+                </div>
+                <div class="practice-section">
+                    <h3>AVOID</h3>
+                    <div class="practice-step">Vague prompts with no context — "fix this" without specifying what fixed looks like</div>
+                    <div class="practice-step">Trusting output without verifying — Claude is confident even when wrong</div>
+                    <div class="practice-step">Working on main branch — always use a worktree or feature branch</div>
+                    <div class="practice-step">Letting context rot — <code>/clear</code> or <code>/compact</code> before quality degrades</div>
+                    <div class="practice-step">Overloading one session — split large tasks across focused sessions</div>
+                    <div class="practice-step">Ignoring CLAUDE.md — it's the highest-leverage 30 minutes you'll ever spend</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Resources & Next Steps -->
+        <div class="slide">
+            <h2>Resources &amp; Next Steps</h2>
+            <p class="subtitle">The official docs, community resources, and practical next steps to put today's techniques into your daily workflow starting in your next session</p>
             <div class="resources-container">
                 <div class="resource-section">
-                    <h3>📚 Learn More</h3>
+                    <h3>📚 Official Docs</h3>
                     <ul>
-                        <li><span class="highlight">Official Docs:</span> docs.claude.com</li>
-                        <li><span class="highlight">Best Practices:</span> anthropic.com/engineering</li>
-                        <li><span class="highlight">Community:</span> Discord & GitHub discussions</li>
+                        <li><span class="highlight">docs.anthropic.com/claude-code</span> — full CLI reference</li>
+                        <li><span class="highlight">anthropic.com/engineering</span> — team best practices blog</li>
+                        <li><span class="highlight">Changelog</span> — model releases, new features, pricing updates</li>
+                        <li><span class="highlight">github.com/anthropics/claude-code</span> — issues, examples, community</li>
                     </ul>
                 </div>
-
                 <div class="resource-section">
-                    <h3>🚀 Practice Projects</h3>
+                    <h3>🚀 Practice Now</h3>
                     <ul>
-                        <li>Create a personal portfolio site</li>
-                        <li>Build a simple REST API</li>
-                        <li>Set up automated testing workflow</li>
-                        <li>Refactor an existing project</li>
+                        <li>Run <code>claude</code> in a real project today — not a toy repo</li>
+                        <li>Write your CLAUDE.md before the next session</li>
+                        <li>Set up one hook (PostToolUse lint is a good start)</li>
+                        <li>Try one parallel worktree session this week</li>
                     </ul>
                 </div>
-
                 <div class="resource-section">
-                    <h3>🛠️ Advanced Features</h3>
+                    <h3>🛠️ Go Deeper</h3>
                     <ul>
-                        <li>Custom slash commands</li>
-                        <li>Project-specific configurations</li>
-                        <li>Team workflow integration</li>
-                        <li>CI/CD automation</li>
+                        <li>Build a custom skill for your team's most repeated task</li>
+                        <li>Connect one MCP server (start with <code>github</code> or your database)</li>
+                        <li>Try headless mode in a pre-commit hook</li>
+                        <li>Share what you learn — teaching it solidifies it</li>
                     </ul>
                 </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="color: #999; font-size: 1rem;">Questions? Let's discuss!</p>
             </div>
         </div>
 
-        <!-- Slide 18: Thank You -->
+        <!-- Slide 22: Thank You -->
         <div class="slide">
             <h1>Thank You</h1>
             <p class="subtitle">You're Ready to Start Coding with Claude!</p>
-            <p style="margin-top: 2rem; color: #ccc;">Remember:</p>
+            <p style="margin-top: 2rem; color: var(--text-secondary);">Remember:</p>
             <ul style="margin-top: 1rem;">
                 <li>Create your CLAUDE.md file</li>
                 <li>Start with simple projects</li>
                 <li>Ask specific questions</li>
                 <li>Don't be afraid to experiment</li>
             </ul>
-            <p style="margin-top: 3rem; color: #666;">
+            <p style="margin-top: 3rem; color: var(--text-muted);">
                 Happy coding! 🚀
             </p>
         </div>
     </div>
 
-    <button class="export-btn" onclick="exportToPDF()">Export to PDF</button>
-
-    <div class="navigation">
-        <button class="nav-btn" onclick="changeSlide(-1)">Previous</button>
-        <button class="nav-btn" onclick="changeSlide(1)">Next</button>
-    </div>
-
     <div class="slide-counter">
         <span id="current-slide">1</span> / <span id="total-slides">18</span>
     </div>
+
+    <button class="theme-toggle" id="theme-toggle">☀️</button>
 
 
     <script>
@@ -2089,53 +1726,22 @@
             }
         });
 
-        // PDF Export functionality
-        function exportToPDF() {
-            // Temporarily show all slides for printing
-            const allSlides = document.querySelectorAll('.slide');
-            const originalActiveSlide = currentSlide;
-
-            // Remove all active classes first
-            allSlides.forEach(slide => {
-                slide.classList.remove('active');
-            });
-
-            // Add a print class to body to trigger print styles
-            document.body.classList.add('printing');
-
-            // Show all slides
-            allSlides.forEach(slide => {
-                slide.style.display = 'block';
-                slide.style.pageBreakAfter = 'always';
-            });
-
-            // Remove page break from last slide
-            if (allSlides.length > 0) {
-                allSlides[allSlides.length - 1].style.pageBreakAfter = 'auto';
-            }
-
-            // Alert user about print settings
-            alert('📋 IMPORTANT: To export with dark background design:\n\n1. In the print dialog, click "More settings"\n2. Check "Background graphics" option\n3. This ensures the black dotted background prints correctly\n4. Choose "Save as PDF" as destination');
-
-            // Short delay to ensure styles are applied, then print
-            setTimeout(() => {
-                window.print();
-
-                // Restore original state after printing
-                setTimeout(() => {
-                    document.body.classList.remove('printing');
-                    allSlides.forEach((slide, index) => {
-                        slide.style.display = '';
-                        slide.style.pageBreakAfter = '';
-                        if (index !== originalActiveSlide) {
-                            slide.classList.remove('active');
-                        } else {
-                            slide.classList.add('active');
-                        }
-                    });
-                }, 100);
-            }, 100);
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
         }
+
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-mode');
+            themeToggle.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
     </script>
 </body>
 </html>

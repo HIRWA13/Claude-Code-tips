@@ -4,7 +4,7 @@
 
 This is a **professional workshop slideshow** for teaching Claude Code best practices. It's a single-file HTML presentation with comprehensive responsive design, featuring 18 slides covering everything from basic setup to advanced workflows.
 
-**Live Demo:** https://booya1986.github.io/Claude-Code-tips/
+**Live Demo:** https://HIRWA13.github.io/Claude-Code-tips/
 
 ## Project Structure
 
@@ -163,8 +163,8 @@ For content-heavy slides, ensure they're included in mobile scrolling media quer
 
 This is a **static HTML slideshow** deployed via GitHub Pages:
 
-1. **Repository:** https://github.com/booya1986/Claude-Code-tips
-2. **Live URL:** https://booya1986.github.io/Claude-Code-tips/
+1. **Repository:** https://github.com/HIRWA13/Claude-Code-tips
+2. **Live URL:** https://HIRWA13.github.io/Claude-Code-tips/
 3. **Deployment:** Automatic on push to main branch
 
 ## Recent Changes
